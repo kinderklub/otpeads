@@ -498,7 +498,7 @@
       </section>
 
       <!-- ====================================================================
-           TAB 2: PEDIATRIC OT SOAP NOTES & STRUCTURED CLINICAL DOMAINS
+           TAB 2: PEDIATRIC OT SOAP NOTES & STRUCTURED CLINICAL DOMAINS (100% ENGLISH)
            ==================================================================== -->
       <section id="tab-soap" class="tab-panel hidden space-y-5">
         <div class="crayon-card p-5 sm:p-6">
@@ -598,7 +598,7 @@
             <!-- 1. FINE MOTOR + TYPICAL PENCIL GRASP DEVELOPMENT CHART -->
             <div class="bg-white p-4 rounded-2xl border-3 border-[#1E1B18] space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2">
-                <label class="font-bold text-base text-[#0284C7]">1. Fine Motor (Motor Halus) & Pencil Grasp Pattern</label>
+                <label class="font-bold text-base text-[#0284C7]">1. Fine Motor & Pencil Grasp Pattern</label>
                 <button type="button" onclick="openHandwritingPad('obs-finemotor', 'Fine Motor Notes')" class="crayon-btn bg-[#FFD23F] px-3 py-1 text-xs">
                   <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
                   <span>Pen</span>
@@ -625,7 +625,7 @@
               <!-- 2. Basic Concept (Able to recognise / Unable to recognise) -->
               <div class="bg-white p-4 rounded-2xl border-3 border-[#1E1B18] space-y-3">
                 <div class="flex items-center justify-between gap-2">
-                  <label class="font-bold text-base text-[#FF9E44]">2. Basic Concept (Konsep Asas)</label>
+                  <label class="font-bold text-base text-[#FF9E44]">2. Basic Concept</label>
                   <button type="button" onclick="openHandwritingPad('obs-concept', 'Basic Concept Notes')" class="crayon-btn bg-[#FFD23F] px-2.5 py-1 text-xs">
                     <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
                     <span>Pen</span>
@@ -638,7 +638,7 @@
               <!-- 3. Cognitive Function (Good / Fair / Poor) -->
               <div class="bg-white p-4 rounded-2xl border-3 border-[#1E1B18] space-y-3">
                 <div class="flex items-center justify-between gap-2">
-                  <label class="font-bold text-base text-[#4CC38A]">3. Cognitive Function (Fungsi Kognitif)</label>
+                  <label class="font-bold text-base text-[#4CC38A]">3. Cognitive Function</label>
                   <button type="button" onclick="openHandwritingPad('obs-cognitive', 'Cognitive Function Notes')" class="crayon-btn bg-[#FFD23F] px-2.5 py-1 text-xs">
                     <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
                     <span>Pen</span>
@@ -654,7 +654,7 @@
               <!-- 4. Behavior -->
               <div class="bg-white p-3.5 rounded-2xl border-3 border-[#1E1B18]">
                 <div class="flex items-center justify-between gap-2 mb-1.5">
-                  <label class="font-bold text-sm text-[#FF6BB5]">4. Behavior (Tingkah Laku)</label>
+                  <label class="font-bold text-sm text-[#FF6BB5]">4. Behavior</label>
                   <button type="button" onclick="openHandwritingPad('obs-behavior', 'Behavior Notes')" class="crayon-btn bg-[#FFD23F] px-2.5 py-1 text-xs">
                     <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
                     <span>Pen</span>
@@ -753,19 +753,23 @@
             <textarea id="soap-p" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Outline STGs/LTGs, intervention activities, caregiver education, and follow-up plan..." class="crayon-input"></textarea>
           </div>
 
-          <!-- COMPLETE COMPILED SOAP NOTES LIVE PREVIEW (DIRECTLY BELOW PLAN) -->
+          <!-- COMPLETE COMPILED SOAP NOTES (EDITABLE DIRECTLY + SAVE NOTE TO SAVED RECORDS) -->
           <div class="crayon-card p-4 sm:p-5 bg-[#FFFDF9]">
             <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b-2 border-dashed border-[#1E1B18]/20">
               <div>
                 <h3 class="text-base sm:text-lg font-bold flex items-center gap-2">
                   <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z" fill="#E6FAFD" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/><line x1="9" y1="11" x2="16" y2="11" stroke="#1E1B18" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="15" x2="16" y2="15" stroke="#1E1B18" stroke-width="2" stroke-linecap="round"/></svg>
-                  <span>Complete Compiled SOAP Note (Live Preview)</span>
+                  <span>Complete Compiled SOAP Note (Editable)</span>
                 </h3>
                 <p class="text-xs font-medium text-[#1E1B18]/75">
-                  Automatically updates with Came With / Entered Room With in Subjective, ticked Pencil Grasp Pattern, Basic Concept recognition, Cognitive ratings, Assessment & Plan!
+                  Auto-compiled in English — tap directly inside the box to edit any text, then tap <strong>Save Note</strong> to store in Saved Records!
                 </p>
               </div>
               <div class="flex flex-wrap gap-2">
+                <button type="button" onclick="saveCurrentRecordToCloud()" class="crayon-btn bg-[#FFD23F] text-[#1E1B18] px-3.5 py-1.5 text-xs font-bold">
+                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z" fill="#56CFE1" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/><rect x="8" y="4" width="7" height="5" fill="#FFFDF9" stroke="#1E1B18" stroke-width="1.8"/><rect x="8" y="13" width="8" height="7" fill="#FF6BB5" stroke="#1E1B18" stroke-width="1.8"/></svg>
+                  <span>Save Note</span>
+                </button>
                 <button type="button" onclick="copyCompleteSOAPNote()" class="crayon-btn bg-[#4CC38A] text-white px-3.5 py-1.5 text-xs font-bold">
                   <svg class="doodle-svg" viewBox="0 0 24 24"><rect x="6" y="5" width="12" height="15" rx="2" fill="#FFFDF9" stroke="#1E1B18" stroke-width="2"/></svg>
                   <span>Copy Full Note</span>
@@ -778,9 +782,17 @@
                   <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 6.8 9.2 3.8 3.8 0 0 0 7 18z" fill="#56CFE1" stroke="#1E1B18" stroke-width="2"/></svg>
                   <span>Google Drive</span>
                 </button>
+                <button type="button" onclick="openHandwritingPad('live-soap-compiled-preview', 'Complete Compiled SOAP Note')" class="crayon-btn bg-white text-[#1E1B18] px-3 py-1.5 text-xs font-bold">
+                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
+                  <span>Pen</span>
+                </button>
+                <button type="button" onclick="refreshCompiledSOAPFromForm()" class="crayon-btn bg-[#E6FAFD] text-[#1E1B18] px-3 py-1.5 text-xs font-bold" title="Regenerate from fields above">
+                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 2 5.3M20 4v7h-7" fill="none" stroke="#1E1B18" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>Re-sync</span>
+                </button>
               </div>
             </div>
-            <pre id="live-soap-compiled-preview" class="w-full bg-[#F8FAFC] border-3 border-[#1E1B18] rounded-2xl p-4 text-xs sm:text-sm font-medium whitespace-pre-wrap break-words leading-relaxed text-[#1E1B18] overflow-x-auto"></pre>
+            <textarea id="live-soap-compiled-preview" rows="20" oninput="handleDirectCompiledSOAPEdit()" class="w-full bg-[#F8FAFC] border-3 border-[#1E1B18] rounded-2xl p-4 text-xs sm:text-sm font-medium leading-relaxed text-[#1E1B18] focus:outline-none focus:border-[#FF6BB5] focus:bg-white"></textarea>
           </div>
         </div>
       </section>
@@ -1885,7 +1897,7 @@
     // Official Dunn Sensory Profile 2 Forms (Infant 0-6m, Toddler 7-35m, Child 3:0-14:11y)
     const SP2_FORMS = {
       infant: {
-        label: "Infant Sensory Profile 2 (Birth – 6 Months / Lahir – 6 Bulan)",
+        label: "Infant Sensory Profile 2 (Birth – 6 Months)",
         isInfantTotalOnly: true,
         quadrants: [
           { key: "TOTAL", title: "Infant Total Score / Jumlah Skor Bayi", max: 125, cutoffs: [30, 40, 61, 71] }
@@ -1927,7 +1939,7 @@
         ]
       },
       toddler: {
-        label: "Toddler Sensory Profile 2 (7 – 35 Months / 7 – 35 Bulan)",
+        label: "Toddler Sensory Profile 2 (7 – 35 Months)",
         isInfantTotalOnly: false,
         quadrants: [
           { key: "SK", title: "Seeking / Seeker (Mencari)", max: 35, cutoffs: [17, 22, 33, 35] },
@@ -2002,7 +2014,7 @@
         ]
       },
       child: {
-        label: "Child Sensory Profile 2 (3:0 – 14:11 Years / 3:0 – 14:11 Tahun)",
+        label: "Child Sensory Profile 2 (3:0 – 14:11 Years)",
         isInfantTotalOnly: false,
         quadrants: [
           { key: "SK", title: "Seeking / Seeker (Mencari)", max: 95, cutoffs: [6, 19, 47, 60] },
@@ -2132,6 +2144,7 @@
         sessionDate: new Date().toISOString().split('T')[0],
         therapist: "OT Ezlyana"
       },
+      isCompiledSOAPManuallyEdited: false,
       domainRatings: {},
       selectedGrasps: {},
       denver: {},
@@ -3170,9 +3183,9 @@
 
     function getSSPSummaryText() {
       const filledBy = document.getElementById('ssp-filled-by').value.trim() || 'Caregiver';
-      const rel = document.getElementById('ssp-relationship').value;
+      const relEn = (document.getElementById('ssp-relationship').value || 'Caregiver').split(' / ')[0];
       const totalText = document.getElementById('ssp-total-score').textContent;
-      const clsText = document.getElementById('ssp-classification-badge').textContent;
+      const clsEn = (document.getElementById('ssp-classification-badge').textContent || 'Awaiting Scores').split(' / ')[0];
 
       const secSummaries = SSP_SECTIONS.map(sec => {
         let sum = 0;
@@ -3185,7 +3198,7 @@
         return `${sec.title.split(' / ')[0]}: ${sum}/${sec.max} (${c})`;
       }).join('; ');
 
-      return `Short Sensory Profile (SSP) [Completed by: ${filledBy} (${rel})]: Total ${totalText} — ${clsText}. Breakdown: ${secSummaries}.`;
+      return `Short Sensory Profile (SSP) [Completed by: ${filledBy} (${relEn})]: Total ${totalText} — ${clsEn}. Breakdown: ${secSummaries}.`;
     }
 
     function sendSSPToSOAP() {
@@ -3467,12 +3480,13 @@
       const formKey = document.getElementById('sp2-age-form').value;
       const formObj = SP2_FORMS[formKey];
       const filledBy = document.getElementById('sp2-filled-by').value.trim() || 'Caregiver';
-      const rel = document.getElementById('sp2-relationship').value;
+      const relEn = (document.getElementById('sp2-relationship').value || 'Caregiver').split(' / ')[0];
 
       const quadSummary = formObj.quadrants.map(q => {
         const val = document.getElementById(`sp2-quad-val-${q.key}`)?.textContent || `0/${q.max}`;
-        const cls = document.getElementById(`sp2-quad-cls-${q.key}`)?.textContent || 'Not Scored';
-        return `${q.title.split(' / ')[0]}: ${val} [${cls}]`;
+        const rawCls = document.getElementById(`sp2-quad-cls-${q.key}`)?.textContent || 'Not Scored';
+        const clsEn = rawCls.split(' / ')[0];
+        return `${q.title.split(' / ')[0]}: ${val} [${clsEn}]`;
       }).join('; ');
 
       const secSummary = formObj.sections.map(sec => {
@@ -3480,7 +3494,7 @@
         return `${sec.title.split(' / ')[0]}: ${pill}`;
       }).join(', ');
 
-      return `${formObj.label} [Completed by: ${filledBy} (${rel})]: ${quadSummary}. Sections: ${secSummary}.`;
+      return `${formObj.label} [Completed by: ${filledBy} (${relEn})]: ${quadSummary}. Sections: ${secSummary}.`;
     }
 
     function sendSP2ToSOAP() {
@@ -3560,7 +3574,7 @@
     window.sendShoreToSOAP = sendShoreToSOAP;
 
     /* ========================================================================
-       11. SOAP NOTES COMPILER, LIVE PREVIEW, PDF EXPORT & GOOGLE DRIVE
+       11. SOAP NOTES COMPILER, LIVE EDITABLE BOX, PDF EXPORT & GOOGLE DRIVE
        ======================================================================== */
     function appendText(elementId, textToAppend) {
       const el = document.getElementById(elementId);
@@ -3579,12 +3593,34 @@
       return `Came with: ${cameWith} | Entered treatment room with: ${enteredWith}.`;
     }
 
+    function handleDirectCompiledSOAPEdit() {
+      state.isCompiledSOAPManuallyEdited = true;
+    }
+    window.handleDirectCompiledSOAPEdit = handleDirectCompiledSOAPEdit;
+
+    function refreshCompiledSOAPFromForm() {
+      state.isCompiledSOAPManuallyEdited = false;
+      updateLiveCompiledSOAPPreview();
+      showToast("Compiled SOAP Note synced from form fields!", "#56CFE1", "#1E1B18");
+    }
+    window.refreshCompiledSOAPFromForm = refreshCompiledSOAPFromForm;
+
     function updateLiveCompiledSOAPPreview() {
       const previewEl = document.getElementById('live-soap-compiled-preview');
       if (!previewEl) return;
-      previewEl.textContent = buildCompleteSOAPDocumentText();
+      if (!state.isCompiledSOAPManuallyEdited) {
+        previewEl.value = buildCompleteSOAPDocumentText();
+      }
     }
     window.updateLiveCompiledSOAPPreview = updateLiveCompiledSOAPPreview;
+
+    function getFinalCompiledSOAPText() {
+      const previewEl = document.getElementById('live-soap-compiled-preview');
+      if (previewEl && previewEl.value.trim()) {
+        return previewEl.value;
+      }
+      return buildCompleteSOAPDocumentText();
+    }
 
     function formatRatingList(items, fallbackLabel = 'Not rated') {
       return items
@@ -3615,12 +3651,12 @@
       const senText = document.getElementById('obs-sensory')?.value.trim() || 'Not documented.';
 
       return [
-        `- 1. Fine Motor (Motor Halus):\n  * Manipulation: ${manipSummary}\n  * Pencil Grasp Pattern: ${graspSummary}${fmExtra ? `\n  * Notes: ${fmExtra}` : ''}`,
-        `- 2. Basic Concept (Konsep Asas):\n  * ${bcSummary}${bcExtra ? `\n  * Notes: ${bcExtra}` : ''}`,
-        `- 3. Cognitive Function (Fungsi Kognitif):\n  * ${cogSummary}${cogExtra ? `\n  * Notes: ${cogExtra}` : ''}`,
-        `- 4. Behavior (Tingkah Laku): ${behText}`,
-        `- 5. Emotional Regulation (Regulasi Emosi): ${emoText}`,
-        `- 6. Sensory Function (Fungsi Sensori): ${senText}`
+        `- 1. Fine Motor:\n  * Manipulation: ${manipSummary}\n  * Pencil Grasp Pattern: ${graspSummary}${fmExtra ? `\n  * Notes: ${fmExtra}` : ''}`,
+        `- 2. Basic Concept:\n  * ${bcSummary}${bcExtra ? `\n  * Notes: ${bcExtra}` : ''}`,
+        `- 3. Cognitive Function:\n  * ${cogSummary}${cogExtra ? `\n  * Notes: ${cogExtra}` : ''}`,
+        `- 4. Behavior: ${behText}`,
+        `- 5. Emotional Regulation: ${emoText}`,
+        `- 6. Sensory Function: ${senText}`
       ].join('\n');
     }
 
@@ -3688,7 +3724,7 @@ Documented by: ${therapist}`;
     }
 
     function copyCompleteSOAPNote() {
-      const fullSOAP = buildCompleteSOAPDocumentText();
+      const fullSOAP = getFinalCompiledSOAPText();
       const tempArea = document.createElement('textarea');
       tempArea.value = fullSOAP;
       document.body.appendChild(tempArea);
@@ -3706,7 +3742,7 @@ Documented by: ${therapist}`;
 
     function exportReportAsPDF() {
       syncPatientState();
-      const fullSOAP = buildCompleteSOAPDocumentText();
+      const fullSOAP = getFinalCompiledSOAPText();
       const fileNameSafe = (state.patient.name || 'Patient_OT_SOAP').replace(/[^a-zA-Z0-9_-]/g, '_');
 
       if (window.jspdf && window.jspdf.jsPDF) {
@@ -3765,7 +3801,7 @@ Documented by: ${therapist}`;
 
     function saveToGoogleDrive() {
       syncPatientState();
-      const fullSOAP = buildCompleteSOAPDocumentText();
+      const fullSOAP = getFinalCompiledSOAPText();
       const fileNameSafe = (state.patient.name || 'Patient_OT_SOAP').replace(/[^a-zA-Z0-9_-]/g, '_');
 
       const docHtml = `
@@ -3825,6 +3861,8 @@ Documented by: ${therapist}`;
         patient: { ...state.patient },
         domainRatings: JSON.stringify(state.domainRatings),
         selectedGrasps: JSON.stringify(state.selectedGrasps),
+        compiledSoapText: getFinalCompiledSOAPText(),
+        isCompiledSOAPManuallyEdited: !!state.isCompiledSOAPManuallyEdited,
         soap: {
           cameWith: document.getElementById('soap-came-with').value,
           enteredRoomWith: document.getElementById('soap-entered-room-with').value,
@@ -3874,8 +3912,8 @@ Documented by: ${therapist}`;
       if (window.firestoreSaveRecord) {
         await window.firestoreSaveRecord(recordId, payload);
       } else {
-        triggerMascotCheer("Patient record saved!");
-        showToast("Record saved! You can view or export it anytime.", "#4CC38A", "#FFFFFF");
+        triggerMascotCheer("SOAP note & patient record saved!");
+        showToast("Note saved into Saved Records!", "#4CC38A", "#FFFFFF");
       }
     };
 
@@ -3948,7 +3986,15 @@ Documented by: ${therapist}`;
       calculateSSPResults();
       renderSP2();
       calculateSP2Results();
-      updateLiveCompiledSOAPPreview();
+
+      if (rec.compiledSoapText) {
+        state.isCompiledSOAPManuallyEdited = !!rec.isCompiledSOAPManuallyEdited;
+        const previewEl = document.getElementById('live-soap-compiled-preview');
+        if (previewEl) previewEl.value = rec.compiledSoapText;
+      } else {
+        state.isCompiledSOAPManuallyEdited = false;
+        updateLiveCompiledSOAPPreview();
+      }
 
       triggerMascotCheer(`Loaded ${pt.name || 'Patient Record'}!`);
       showToast(`Loaded record for ${pt.name || 'Patient'}!`, "#4CC38A", "#FFFFFF");
@@ -3966,7 +4012,7 @@ Documented by: ${therapist}`;
             <div class="flex justify-center mb-2">${DOODLE_ICONS.folder}</div>
             <div class="font-bold text-base">No Saved Records Yet</div>
             <div class="text-xs sm:text-sm text-[#1E1B18]/75 mt-1">
-              Fill in your patient's details & SOAP notes, then tap <strong>"Save Record"</strong> at the top to access them across devices!
+              Fill in your patient's details & SOAP notes, then tap <strong>"Save Note"</strong> or <strong>"Save Record"</strong> to access them across devices!
             </div>
           </div>
         `;
@@ -4013,6 +4059,7 @@ Documented by: ${therapist}`;
 
     function resetAllSessionData() {
       window.activeRecordId = null;
+      state.isCompiledSOAPManuallyEdited = false;
       ['pt-name', 'pt-mykid', 'pt-dob', 'pt-gender', 'pt-diagnosis', 'pt-rn', 'pt-informant',
        'soap-came-with', 'soap-entered-room-with',
        'soap-s', 'soap-o', 'soap-a', 'soap-p', 'obs-behavior', 'obs-emotion', 'obs-concept',
