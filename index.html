@@ -509,7 +509,7 @@
                 <span>Pediatric OT SOAP Notes & Clinical Observations</span>
               </h2>
               <p class="text-sm font-medium text-[#1E1B18]/75 mt-1">
-                Document Subjective attendance, structured Objective observations, Assessment, and Plan.
+                Document Subjective attendance, structured Objective observations, Assessment, and Plan. Only completed items appear in your compiled SOAP note!
               </p>
             </div>
             <div class="flex flex-wrap gap-2">
@@ -591,7 +591,7 @@
                 <span>Objective — Clinical Functional Observation Domains</span>
               </div>
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-white border-2 border-[#1E1B18]">
-                Auto-synced directly into Compiled SOAP & PDF
+                Only rated/filled items appear in Compiled SOAP & PDF
               </span>
             </div>
 
@@ -753,16 +753,16 @@
             <textarea id="soap-p" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Outline STGs/LTGs, intervention activities, caregiver education, and follow-up plan..." class="crayon-input"></textarea>
           </div>
 
-          <!-- COMPLETE COMPILED SOAP NOTES (EDITABLE DIRECTLY + SAVE NOTE TO SAVED RECORDS) -->
+          <!-- COMPLETE COMPILED SOAP NOTES (PURE [S][O][A][P] — EDITABLE + SAVE NOTE TO SAVED RECORDS) -->
           <div class="crayon-card p-4 sm:p-5 bg-[#FFFDF9]">
             <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b-2 border-dashed border-[#1E1B18]/20">
               <div>
                 <h3 class="text-base sm:text-lg font-bold flex items-center gap-2">
                   <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z" fill="#E6FAFD" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/><line x1="9" y1="11" x2="16" y2="11" stroke="#1E1B18" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="15" x2="16" y2="15" stroke="#1E1B18" stroke-width="2" stroke-linecap="round"/></svg>
-                  <span>Complete Compiled SOAP Note (Editable)</span>
+                  <span>Complete Compiled SOAP Note (Editable — Ready to Copy & Paste)</span>
                 </h3>
                 <p class="text-xs font-medium text-[#1E1B18]/75">
-                  Auto-compiled in English — tap directly inside the box to edit any text, then tap <strong>Save Note</strong> to store in Saved Records!
+                  Pure SOAP text only (no extra headers, lines, or footers)—tap <strong>Copy Full Note</strong> to paste directly, or <strong>Save Note</strong> to store in Saved Records!
                 </p>
               </div>
               <div class="flex flex-wrap gap-2">
@@ -792,7 +792,7 @@
                 </button>
               </div>
             </div>
-            <textarea id="live-soap-compiled-preview" rows="20" oninput="handleDirectCompiledSOAPEdit()" class="w-full bg-[#F8FAFC] border-3 border-[#1E1B18] rounded-2xl p-4 text-xs sm:text-sm font-medium leading-relaxed text-[#1E1B18] focus:outline-none focus:border-[#FF6BB5] focus:bg-white"></textarea>
+            <textarea id="live-soap-compiled-preview" rows="18" oninput="handleDirectCompiledSOAPEdit()" placeholder="Your compiled English SOAP note ([S], [O], [A], [P]) will appear here automatically as you fill in the sections above..." class="w-full bg-[#F8FAFC] border-3 border-[#1E1B18] rounded-2xl p-4 text-xs sm:text-sm font-medium leading-relaxed text-[#1E1B18] focus:outline-none focus:border-[#FF6BB5] focus:bg-white"></textarea>
           </div>
         </div>
       </section>
@@ -3015,6 +3015,12 @@
     }
     window.updateDenverTally = updateDenverTally;
 
+    function hasDenverData() {
+      const hasScores = Object.values(state.denver).some(v => Boolean(v));
+      const hasNotes = Boolean(document.getElementById('denver-notes')?.value.trim());
+      return hasScores || hasNotes;
+    }
+
     function getDenverSummaryText() {
       const ageMonths = parseFloat(document.getElementById('denver-age-months').value) || 0;
       const tally = document.getElementById('denver-tally').textContent;
@@ -3181,11 +3187,17 @@
       badge.style.color = totalCls.color;
     }
 
+    function hasSSPData() {
+      const pHas = Object.values(state.sspAnswers).some(v => v > 0);
+      const oHas = Object.values(state.sspOtScores).some(v => v > 0);
+      return pHas || oHas;
+    }
+
     function getSSPSummaryText() {
-      const filledBy = document.getElementById('ssp-filled-by').value.trim() || 'Caregiver';
+      const filledBy = document.getElementById('ssp-filled-by').value.trim();
       const relEn = (document.getElementById('ssp-relationship').value || 'Caregiver').split(' / ')[0];
       const totalText = document.getElementById('ssp-total-score').textContent;
-      const clsEn = (document.getElementById('ssp-classification-badge').textContent || 'Awaiting Scores').split(' / ')[0];
+      const clsEn = (document.getElementById('ssp-classification-badge').textContent || '').split(' / ')[0];
 
       const secSummaries = SSP_SECTIONS.map(sec => {
         let sum = 0;
@@ -3194,11 +3206,13 @@
         } else {
           sum = state.sspOtScores[sec.id] || 0;
         }
+        if (sum === 0) return null;
         const c = getSSPClassification(sum, sec.typicalMin, sec.probMin).label.split(' / ')[0];
         return `${sec.title.split(' / ')[0]}: ${sum}/${sec.max} (${c})`;
-      }).join('; ');
+      }).filter(Boolean).join('; ');
 
-      return `Short Sensory Profile (SSP) [Completed by: ${filledBy} (${relEn})]: Total ${totalText} — ${clsEn}. Breakdown: ${secSummaries}.`;
+      const completedTag = filledBy ? ` [Completed by: ${filledBy} (${relEn})]` : '';
+      return `Short Sensory Profile (SSP)${completedTag}: Total ${totalText} — ${clsEn}.${secSummaries ? ' Breakdown: ' + secSummaries + '.' : ''}`;
     }
 
     function sendSSPToSOAP() {
@@ -3476,25 +3490,35 @@
       });
     }
 
+    function hasSP2Data() {
+      const pHas = Object.values(state.sp2Answers).some(v => v !== undefined && v !== null);
+      const qHas = Object.values(state.sp2OtScores).some(v => v !== undefined && v !== null);
+      const sHas = Object.values(state.sp2OtSectionScores).some(v => v !== undefined && v !== null);
+      return pHas || qHas || sHas;
+    }
+
     function getSP2SummaryText() {
       const formKey = document.getElementById('sp2-age-form').value;
       const formObj = SP2_FORMS[formKey];
-      const filledBy = document.getElementById('sp2-filled-by').value.trim() || 'Caregiver';
+      const filledBy = document.getElementById('sp2-filled-by').value.trim();
       const relEn = (document.getElementById('sp2-relationship').value || 'Caregiver').split(' / ')[0];
 
       const quadSummary = formObj.quadrants.map(q => {
-        const val = document.getElementById(`sp2-quad-val-${q.key}`)?.textContent || `0/${q.max}`;
         const rawCls = document.getElementById(`sp2-quad-cls-${q.key}`)?.textContent || 'Not Scored';
+        if (rawCls.startsWith('Not Scored')) return null;
+        const val = document.getElementById(`sp2-quad-val-${q.key}`)?.textContent || `0/${q.max}`;
         const clsEn = rawCls.split(' / ')[0];
         return `${q.title.split(' / ')[0]}: ${val} [${clsEn}]`;
-      }).join('; ');
+      }).filter(Boolean).join('; ');
 
       const secSummary = formObj.sections.map(sec => {
         const pill = document.getElementById(`sp2-sec-pill-${sec.id}`)?.textContent || `0/${sec.max}`;
+        if (pill.startsWith(`0 / ${sec.max}`)) return null;
         return `${sec.title.split(' / ')[0]}: ${pill}`;
-      }).join(', ');
+      }).filter(Boolean).join(', ');
 
-      return `${formObj.label} [Completed by: ${filledBy} (${relEn})]: ${quadSummary}. Sections: ${secSummary}.`;
+      const completedTag = filledBy ? ` [Completed by: ${filledBy} (${relEn})]` : '';
+      return `${formObj.label}${completedTag}:${quadSummary ? ' ' + quadSummary + '.' : ''}${secSummary ? ' Sections: ' + secSummary + '.' : ''}`;
     }
 
     function sendSP2ToSOAP() {
@@ -3507,6 +3531,13 @@
     /* ========================================================================
        10. SHORE HANDWRITING SCREENING (SHS) — OT SCORING & INTERPRETATION
        ======================================================================== */
+    function hasShoreData() {
+      const textIds = ['shore-school', 'shore-speed', 'shore-1a', 'shore-1b', 'shore-2b', 'shore-2c', 'shore-2d1', 'shore-2d2', 'shore-4a', 'shore-4b', 'shore-4c', 'shore-5a', 'shore-5b', 'shore-5c', 'shore-notes'];
+      const hasInput = textIds.some(id => Boolean(document.getElementById(id)?.value.trim()));
+      const hasChecks = document.querySelectorAll('.shore-posture-issue:checked, .shore-shape:checked, .shore-rec-area:checked, #shore-rec-none:checked').length > 0;
+      return hasInput || hasChecks;
+    }
+
     function updateShoreInterpretation() {
       const version = document.getElementById('shore-version')?.value || '';
       const school = document.getElementById('shore-school')?.value.trim() || '';
@@ -3537,19 +3568,37 @@
       let parts = [`Shore Handwriting Screening (${version}${school ? ', ' + school : ''}):`];
 
       if (p1a || p1b || pIssues.length) {
-        parts.push(`Postural Control: Desk height appropriate=${p1a || 'N/A'}, Feet on floor=${p1b || 'N/A'}${pIssues.length ? '; Issues: ' + pIssues.join(', ') : '; Good seated posture'}.`);
+        const postureSub = [];
+        if (p1a) postureSub.push(`Desk height appropriate=${p1a}`);
+        if (p1b) postureSub.push(`Feet on floor=${p1b}`);
+        if (pIssues.length) postureSub.push(`Issues: ${pIssues.join(', ')}`);
+        parts.push(`Postural Control: ${postureSub.join(', ')}.`);
       }
       if (domHand || grasp || rot1 || rot2) {
-        parts.push(`Hand Control: Dominant=${domHand || 'N/A'}, Grasp=${grasp || 'N/A'}, In-hand rotation without drop=${rot1 || 'N/A'}, Without assist=${rot2 || 'N/A'}.`);
+        const handSub = [];
+        if (domHand) handSub.push(`Dominant=${domHand}`);
+        if (grasp) handSub.push(`Grasp=${grasp}`);
+        if (rot1) handSub.push(`In-hand rotation without drop=${rot1}`);
+        if (rot2) handSub.push(`Without assist=${rot2}`);
+        parts.push(`Hand Control: ${handSub.join(', ')}.`);
       }
       if (shapes.length) {
         parts.push(`Pre-Writing Shapes Mastered (${shapes.length}/8): ${shapes.join(', ')}.`);
       }
       if (f4a || f4b || f4c || speed) {
-        parts.push(`Formation & Legibility: Draw person/numbers=${f4a || 'N/A'}, Far-point date=${f4b || 'N/A'}, Word/sentence=${f4c || 'N/A'}${speed ? `, Speed=${speed} letters/min` : ''}.`);
+        const formSub = [];
+        if (f4a) formSub.push(`Draw person/numbers=${f4a}`);
+        if (f4b) formSub.push(`Far-point date=${f4b}`);
+        if (f4c) formSub.push(`Word/sentence=${f4c}`);
+        if (speed) formSub.push(`Speed=${speed} letters/min`);
+        parts.push(`Formation & Legibility: ${formSub.join(', ')}.`);
       }
       if (b5a || b5b || b5c) {
-        parts.push(`Bilateral Hand Skills: Coloring within 1/4"=${b5a || 'N/A'}, Helper hand on paper=${b5b || 'N/A'}, Cutting within 1/4"=${b5c || 'N/A'}.`);
+        const biSub = [];
+        if (b5a) biSub.push(`Coloring within 1/4"=${b5a}`);
+        if (b5b) biSub.push(`Helper hand on paper=${b5b}`);
+        if (b5c) biSub.push(`Cutting within 1/4"=${b5c}`);
+        parts.push(`Bilateral Hand Skills: ${biSub.join(', ')}.`);
       }
       if (recNone) {
         parts.push(`Recommendation: Further OT handwriting testing NOT indicated.`);
@@ -3560,7 +3609,11 @@
 
       const summary = parts.join(' ');
       const displayEl = document.getElementById('shore-live-interpretation');
-      if (displayEl) displayEl.textContent = summary;
+      if (displayEl) {
+        displayEl.textContent = hasShoreData()
+          ? summary
+          : "Complete the Shore screening sections below to generate your clinical interpretation summary.";
+      }
       return summary;
     }
     window.updateShoreInterpretation = updateShoreInterpretation;
@@ -3574,7 +3627,7 @@
     window.sendShoreToSOAP = sendShoreToSOAP;
 
     /* ========================================================================
-       11. SOAP NOTES COMPILER, LIVE EDITABLE BOX, PDF EXPORT & GOOGLE DRIVE
+       11. SOAP NOTES COMPILER (PURE [S][O][A][P] ONLY — NO WRAPPER HEADERS/FOOTERS)
        ======================================================================== */
     function appendText(elementId, textToAppend) {
       const el = document.getElementById(elementId);
@@ -3587,10 +3640,14 @@
     function getSubjectiveAttendanceLine() {
       const cameWith = document.getElementById('soap-came-with')?.value.trim()
         || document.getElementById('pt-informant')?.value.trim()
-        || 'Not specified';
+        || '';
       const enteredWith = document.getElementById('soap-entered-room-with')?.value.trim()
-        || 'Not specified';
-      return `Came with: ${cameWith} | Entered treatment room with: ${enteredWith}.`;
+        || '';
+
+      const parts = [];
+      if (cameWith) parts.push(`Came with: ${cameWith}`);
+      if (enteredWith) parts.push(`Entered treatment room with: ${enteredWith}`);
+      return parts.length > 0 ? parts.join(' | ') + '.' : '';
     }
 
     function handleDirectCompiledSOAPEdit() {
@@ -3622,109 +3679,140 @@
       return buildCompleteSOAPDocumentText();
     }
 
-    function formatRatingList(items, fallbackLabel = 'Not rated') {
+    function formatRatedItemsOnly(items) {
       return items
-        .map(it => `${it.label}: ${state.domainRatings[it.key] || fallbackLabel}`)
+        .filter(it => Boolean(state.domainRatings[it.key]))
+        .map(it => `${it.label}: ${state.domainRatings[it.key]}`)
         .join(' | ');
     }
 
     function getStructuredDomainsFormattedText() {
-      // 1. Fine Motor (Hand, Finger, Wrist Manipulation + Ticked Pencil Grasp Pattern)
-      const manipSummary = formatRatingList(FINE_MOTOR_MANIPULATION_ITEMS, 'Not rated');
+      const domainBlocks = [];
+
+      // 1. Fine Motor (only include sub-lines that were actually rated/ticked/typed)
+      const manipSummary = formatRatedItemsOnly(FINE_MOTOR_MANIPULATION_ITEMS);
       const tickedGrasps = TYPICAL_PENCIL_GRASP_ITEMS
         .filter(g => state.selectedGrasps[g.key])
         .map(g => `${g.label} (${g.age})`);
-      const graspSummary = tickedGrasps.length > 0 ? tickedGrasps.join(', ') : 'Not specified';
       const fmExtra = document.getElementById('obs-finemotor')?.value.trim();
 
-      // 2. Basic Concept (Alphabet, Number, Color, Shape, Animal, Body Parts -> Able / Unable to recognise)
-      const bcSummary = formatRatingList(BASIC_CONCEPT_ITEMS, 'Not assessed');
+      const fmSubLines = [];
+      if (manipSummary) fmSubLines.push(`  * Manipulation: ${manipSummary}`);
+      if (tickedGrasps.length > 0) fmSubLines.push(`  * Pencil Grasp Pattern: ${tickedGrasps.join(', ')}`);
+      if (fmExtra) fmSubLines.push(`  * Notes: ${fmExtra}`);
+      if (fmSubLines.length > 0) {
+        domainBlocks.push({ title: "Fine Motor", lines: fmSubLines });
+      }
+
+      // 2. Basic Concept
+      const bcSummary = formatRatedItemsOnly(BASIC_CONCEPT_ITEMS);
       const bcExtra = document.getElementById('obs-concept')?.value.trim();
+      const bcSubLines = [];
+      if (bcSummary) bcSubLines.push(`  * ${bcSummary}`);
+      if (bcExtra) bcSubLines.push(`  * Notes: ${bcExtra}`);
+      if (bcSubLines.length > 0) {
+        domainBlocks.push({ title: "Basic Concept", lines: bcSubLines });
+      }
 
-      // 3. Cognitive Function (Cognitive Function, Attention, Concentration -> Good / Fair / Poor)
-      const cogSummary = formatRatingList(COGNITIVE_ITEMS, 'Not rated');
+      // 3. Cognitive Function
+      const cogSummary = formatRatedItemsOnly(COGNITIVE_ITEMS);
       const cogExtra = document.getElementById('obs-cognitive')?.value.trim();
+      const cogSubLines = [];
+      if (cogSummary) cogSubLines.push(`  * ${cogSummary}`);
+      if (cogExtra) cogSubLines.push(`  * Notes: ${cogExtra}`);
+      if (cogSubLines.length > 0) {
+        domainBlocks.push({ title: "Cognitive Function", lines: cogSubLines });
+      }
 
-      // 4. Behavior, 5. Emotional Regulation, 6. Sensory Function
-      const behText = document.getElementById('obs-behavior')?.value.trim() || 'Not documented.';
-      const emoText = document.getElementById('obs-emotion')?.value.trim() || 'Not documented.';
-      const senText = document.getElementById('obs-sensory')?.value.trim() || 'Not documented.';
+      // 4. Behavior
+      const behText = document.getElementById('obs-behavior')?.value.trim();
+      if (behText) {
+        domainBlocks.push({ title: "Behavior", inlineText: behText });
+      }
 
-      return [
-        `- 1. Fine Motor:\n  * Manipulation: ${manipSummary}\n  * Pencil Grasp Pattern: ${graspSummary}${fmExtra ? `\n  * Notes: ${fmExtra}` : ''}`,
-        `- 2. Basic Concept:\n  * ${bcSummary}${bcExtra ? `\n  * Notes: ${bcExtra}` : ''}`,
-        `- 3. Cognitive Function:\n  * ${cogSummary}${cogExtra ? `\n  * Notes: ${cogExtra}` : ''}`,
-        `- 4. Behavior: ${behText}`,
-        `- 5. Emotional Regulation: ${emoText}`,
-        `- 6. Sensory Function: ${senText}`
-      ].join('\n');
+      // 5. Emotional Regulation
+      const emoText = document.getElementById('obs-emotion')?.value.trim();
+      if (emoText) {
+        domainBlocks.push({ title: "Emotional Regulation", inlineText: emoText });
+      }
+
+      // 6. Sensory Function
+      const senText = document.getElementById('obs-sensory')?.value.trim();
+      if (senText) {
+        domainBlocks.push({ title: "Sensory Function", inlineText: senText });
+      }
+
+      if (domainBlocks.length === 0) return '';
+
+      return domainBlocks.map((block, idx) => {
+        const num = idx + 1;
+        if (block.inlineText) {
+          return `- ${num}. ${block.title}: ${block.inlineText}`;
+        }
+        return `- ${num}. ${block.title}:\n${block.lines.join('\n')}`;
+      }).join('\n');
     }
 
     function syncAllAssessmentsToSOAP() {
-      const summaries = [
-        getDenverSummaryText(),
-        getSSPSummaryText(),
-        getSP2SummaryText(),
-        updateShoreInterpretation()
-      ].join('\n');
+      const summaries = [];
+      if (hasDenverData()) summaries.push(getDenverSummaryText());
+      if (hasSSPData()) summaries.push(getSSPSummaryText());
+      if (hasSP2Data()) summaries.push(getSP2SummaryText());
+      if (hasShoreData()) summaries.push(updateShoreInterpretation());
 
-      appendText('soap-o', "--- STANDARDIZED OT ASSESSMENT RESULTS ---\n" + summaries);
-      triggerMascotCheer("All assessment results synced into SOAP Objective!");
-      showToast("All assessment scores synced into SOAP Objective!", "#4CC38A", "#FFFFFF");
+      if (summaries.length === 0) {
+        showToast("No assessment scores entered yet!", "#FF9E44", "#FFFFFF");
+        return;
+      }
+
+      appendText('soap-o', "--- STANDARDIZED OT ASSESSMENT RESULTS ---\n" + summaries.join('\n'));
+      triggerMascotCheer("Completed assessment results synced into SOAP Objective!");
+      showToast("Assessment scores synced into SOAP Objective!", "#4CC38A", "#FFFFFF");
     }
     window.syncAllAssessmentsToSOAP = syncAllAssessmentsToSOAP;
 
     function buildCompleteSOAPDocumentText() {
-      const name = document.getElementById('pt-name')?.value.trim() || 'N/A';
-      const mykid = document.getElementById('pt-mykid')?.value.trim() || 'N/A';
-      const dob = document.getElementById('pt-dob')?.value || 'N/A';
-      const ageText = state.patient.ageText || 'N/A';
-      const gender = document.getElementById('pt-gender')?.value || 'N/A';
-      const rn = document.getElementById('pt-rn')?.value.trim() || 'N/A';
-      const diagnosis = document.getElementById('pt-diagnosis')?.value.trim() || 'N/A';
-      const sessionDate = document.getElementById('pt-session-date')?.value || 'N/A';
-      const therapist = document.getElementById('pt-therapist')?.value.trim() || 'OT Ezlyana';
+      const soapSections = [];
 
+      // [S] SUBJECTIVE
       const attendanceLine = getSubjectiveAttendanceLine();
       const rawSubjective = document.getElementById('soap-s')?.value.trim() || '';
-      const fullSubjective = `${attendanceLine}${rawSubjective ? '\n' + rawSubjective : ''}`;
+      const fullSubjective = [attendanceLine, rawSubjective].filter(Boolean).join('\n');
+      if (fullSubjective) {
+        soapSections.push(`[S] SUBJECTIVE:\n${fullSubjective}`);
+      }
 
+      // [O] OBJECTIVE
       const domainObs = getStructuredDomainsFormattedText();
       const objStd = document.getElementById('soap-o')?.value.trim() || '';
-      const fullObjective = [
-        "Clinical Functional Observation Domains:\n" + domainObs,
-        objStd ? "Assessment Findings:\n" + objStd : ""
-      ].filter(Boolean).join('\n\n');
+      const objParts = [];
+      if (domainObs) objParts.push(`Clinical Functional Observation Domains:\n${domainObs}`);
+      if (objStd) objParts.push(`Assessment Findings:\n${objStd}`);
+      if (objParts.length > 0) {
+        soapSections.push(`[O] OBJECTIVE:\n${objParts.join('\n\n')}`);
+      }
 
-      return `====================================================
-PEDIATRIC OCCUPATIONAL THERAPY CLINICAL SOAP NOTE
-====================================================
-Patient Name : ${name}
-MyKid / IC   : ${mykid}
-DOB & Age    : ${dob} (${ageText})
-Gender       : ${gender}
-RN Number    : ${rn}
-Diagnosis    : ${diagnosis}
-Session Date : ${sessionDate}
-Attending OT : ${therapist}
-----------------------------------------------------
-[S] SUBJECTIVE:
-${fullSubjective}
+      // [A] ASSESSMENT
+      const assessmentText = document.getElementById('soap-a')?.value.trim() || '';
+      if (assessmentText) {
+        soapSections.push(`[A] ASSESSMENT:\n${assessmentText}`);
+      }
 
-[O] OBJECTIVE:
-${fullObjective}
+      // [P] PLAN
+      const planText = document.getElementById('soap-p')?.value.trim() || '';
+      if (planText) {
+        soapSections.push(`[P] PLAN:\n${planText}`);
+      }
 
-[A] ASSESSMENT:
-${document.getElementById('soap-a')?.value.trim() || 'Not documented.'}
-
-[P] PLAN:
-${document.getElementById('soap-p')?.value.trim() || 'Not documented.'}
-====================================================
-Documented by: ${therapist}`;
+      return soapSections.join('\n\n');
     }
 
     function copyCompleteSOAPNote() {
       const fullSOAP = getFinalCompiledSOAPText();
+      if (!fullSOAP.trim()) {
+        showToast("Nothing to copy yet — fill in your SOAP note first!", "#FF9E44", "#FFFFFF");
+        return;
+      }
       const tempArea = document.createElement('textarea');
       tempArea.value = fullSOAP;
       document.body.appendChild(tempArea);
@@ -3740,9 +3828,32 @@ Documented by: ${therapist}`;
     }
     window.copyCompleteSOAPNote = copyCompleteSOAPNote;
 
+    function buildPDFPatientHeaderLines() {
+      const lines = [];
+      if (state.patient.name) lines.push(`Patient Name : ${state.patient.name}`);
+      if (state.patient.mykid) lines.push(`MyKid / IC   : ${state.patient.mykid}`);
+      if (state.patient.dob && state.patient.ageText) {
+        lines.push(`DOB & Age    : ${state.patient.dob} (${state.patient.ageText})`);
+      } else if (state.patient.dob) {
+        lines.push(`DOB          : ${state.patient.dob}`);
+      } else if (state.patient.ageText) {
+        lines.push(`Age          : ${state.patient.ageText}`);
+      }
+      if (state.patient.gender) lines.push(`Gender       : ${state.patient.gender}`);
+      if (state.patient.rn) lines.push(`RN Number    : ${state.patient.rn}`);
+      if (state.patient.diagnosis) lines.push(`Diagnosis    : ${state.patient.diagnosis}`);
+      return lines;
+    }
+
     function exportReportAsPDF() {
       syncPatientState();
-      const fullSOAP = getFinalCompiledSOAPText();
+      const pureSOAP = getFinalCompiledSOAPText();
+      const ptLines = buildPDFPatientHeaderLines();
+      const pdfBody = [
+        ptLines.length > 0 ? ptLines.join('\n') + '\n----------------------------------------------------' : '',
+        pureSOAP
+      ].filter(Boolean).join('\n\n');
+
       const fileNameSafe = (state.patient.name || 'Patient_OT_SOAP').replace(/[^a-zA-Z0-9_-]/g, '_');
 
       if (window.jspdf && window.jspdf.jsPDF) {
@@ -3774,7 +3885,7 @@ Documented by: ${therapist}`;
           doc.setFont("courier", "normal");
           doc.setFontSize(9.2);
 
-          const lines = doc.splitTextToSize(fullSOAP, maxLineWidth);
+          const lines = doc.splitTextToSize(pdfBody, maxLineWidth);
           for (let i = 0; i < lines.length; i++) {
             if (y > pageHeight - 18) {
               doc.addPage();
@@ -3794,20 +3905,20 @@ Documented by: ${therapist}`;
       }
 
       const printSheet = document.getElementById('print-report-sheet');
-      printSheet.innerHTML = `<pre style="font-family: monospace; white-space: pre-wrap; font-size: 12px;">${fullSOAP.replace(/</g, '&lt;')}</pre>`;
+      printSheet.innerHTML = `<pre style="font-family: monospace; white-space: pre-wrap; font-size: 12px;">${pdfBody.replace(/</g, '&lt;')}</pre>`;
       window.print();
     }
     window.exportReportAsPDF = exportReportAsPDF;
 
     function saveToGoogleDrive() {
       syncPatientState();
-      const fullSOAP = getFinalCompiledSOAPText();
+      const pureSOAP = getFinalCompiledSOAPText();
       const fileNameSafe = (state.patient.name || 'Patient_OT_SOAP').replace(/[^a-zA-Z0-9_-]/g, '_');
 
       const docHtml = `
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'>
         <head><meta charset='utf-8'><title>OT SOAP Report</title></head>
-        <body style="font-family: Arial, sans-serif; line-height: 1.5; white-space: pre-wrap;">${fullSOAP.replace(/</g, '&lt;')}</body>
+        <body style="font-family: Arial, sans-serif; line-height: 1.5; white-space: pre-wrap;">${pureSOAP.replace(/</g, '&lt;')}</body>
         </html>`;
       const blob = new Blob([docHtml], { type: 'application/msword' });
       const url = URL.createObjectURL(blob);
