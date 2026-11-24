@@ -733,6 +733,9 @@
             </div>
             <div class="flex flex-wrap gap-1.5 mb-2.5">
               <button type="button" onclick="appendText('soap-a', 'Occupational performance in play, self-regulation, and school readiness is impacted by sensory modulation differences (sensory seeking/avoiding) affecting arousal control. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Sensory Modulation</button>
+              <button type="button" onclick="appendText('soap-a', 'Hyperactivity, impulsivity, and frequent out-of-seat behavior limit seated tabletop engagement and safe participation in structured routines. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#FFF0F6] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Behavior: Impulsivity & Out-of-Seat</button>
+              <button type="button" onclick="appendText('soap-a', 'Task avoidance, non-compliance, and difficulty following adult-directed limits reduce participation during non-preferred tabletop activities. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#FFF0F6] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Behavior: Task Avoidance & Compliance</button>
+              <button type="button" onclick="appendText('soap-a', 'Behavioral rigidity and difficulty shifting between preferred and non-preferred tasks trigger meltdowns or refusal during daily transitions. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#FFF0F6] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Behavior: Transition Resistance</button>
               <button type="button" onclick="appendText('soap-a', 'Fine motor precision, in-hand manipulation, and immature pencil grasp limit pre-writing stroke accuracy, coloring control, and handwriting legibility. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Fine Motor & Grasp</button>
               <button type="button" onclick="appendText('soap-a', 'Reduced postural stability, core endurance, and bilateral hand coordination impact tabletop task persistence and tool use. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Praxis & Bilateral</button>
               <button type="button" onclick="appendText('soap-a', 'Short sustained attention span, distractibility, and reduced impulse control affect multi-step task completion in structured settings. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Attention & Executive</button>
@@ -751,14 +754,14 @@
             <textarea id="soap-a" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Synthesize clinical interpretation, functional strengths, barriers to participation, and rehab potential..." class="crayon-input"></textarea>
           </div>
 
-          <!-- P: PLAN (SHORT TERM GOALS, LONG TERM GOALS & THERAPEUTIC INTERVENTIONS) -->
+          <!-- P: PLAN (SHORT TERM GOALS, LONG TERM GOALS, INTERVENTIONS & HOME PROGRAM) -->
           <div class="crayon-card-mint p-4 mb-5 space-y-4">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <label class="text-base sm:text-lg font-bold flex items-center gap-2">
                 <span class="w-8 h-8 rounded-full bg-[#4CC38A] text-white border-2 border-[#1E1B18] flex items-center justify-center font-bold">P</span>
-                <span>Plan (Short Term Goals, Long Term Goals & Therapeutic Interventions)</span>
+                <span>Plan (STGs, LTGs, Therapeutic Interventions & Home Program)</span>
               </label>
-              <button type="button" onclick="openHandwritingPad('soap-p', 'Intervention Plan (P)')" class="crayon-btn bg-[#FFD23F] px-3.5 py-1.5 text-xs sm:text-sm">
+              <button type="button" onclick="openHandwritingPad('soap-p', 'Therapeutic Interventions (P)')" class="crayon-btn bg-[#FFD23F] px-3.5 py-1.5 text-xs sm:text-sm">
                 <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
                 <span>Write with Pen</span>
               </button>
@@ -776,10 +779,12 @@
                   </button>
                 </div>
                 <div class="flex flex-wrap gap-1 mb-2">
-                  <button type="button" onclick="appendText('soap-stg', '1. Client will tolerate and engage in structured tabletop tasks for 10–15 minutes with max 1 visual/verbal prompt within 6 weeks. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Attention 10–15m</button>
-                  <button type="button" onclick="appendText('soap-stg', '2. Client will demonstrate functional tripod grasp with improved in-hand manipulation during pre-writing/coloring tasks within 6 weeks. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Tripod Grasp</button>
-                  <button type="button" onclick="appendText('soap-stg', '3. Client will utilize sensory-motor calming strategies with co-regulation to recover from frustration within 2 minutes. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Self-Regulation</button>
-                  <button type="button" onclick="appendText('soap-stg', '4. Client will accurately identify and match basic concepts (colors, shapes, numbers) with 80% accuracy. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Basic Concepts 80%</button>
+                  <button type="button" onclick="appendText('soap-stg', 'Client will remain seated and comply with structured therapist-directed activities for 10 minutes using a visual schedule and max 1 prompt within 6 weeks. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFE8F4] border border-[#1E1B18]">+ Behavior: Seated Compliance</button>
+                  <button type="button" onclick="appendText('soap-stg', 'Client will transition between preferred and non-preferred tasks without tantrums or task refusal in 4/5 opportunities using a visual timer within 6 weeks. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFE8F4] border border-[#1E1B18]">+ Behavior: Smooth Transitions</button>
+                  <button type="button" onclick="appendText('soap-stg', 'Client will tolerate and engage in structured tabletop tasks for 10–15 minutes with max 1 visual/verbal prompt within 6 weeks. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Attention 10–15m</button>
+                  <button type="button" onclick="appendText('soap-stg', 'Client will demonstrate functional tripod grasp with improved in-hand manipulation during pre-writing/coloring tasks within 6 weeks. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Tripod Grasp</button>
+                  <button type="button" onclick="appendText('soap-stg', 'Client will utilize sensory-motor calming strategies with co-regulation to recover from frustration within 2 minutes. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Self-Regulation</button>
+                  <button type="button" onclick="appendText('soap-stg', 'Client will accurately identify and match basic concepts (colors, shapes, numbers) with 80% accuracy. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Basic Concepts 80%</button>
                 </div>
                 <textarea id="soap-stg" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Enter measurable Short Term Goals (STGs)..." class="crayon-input text-sm"></textarea>
               </div>
@@ -794,25 +799,57 @@
                   </button>
                 </div>
                 <div class="flex flex-wrap gap-1 mb-2">
-                  <button type="button" onclick="appendText('soap-ltg', '1. Client will independently regulate sensory arousal and behavior across home and classroom routines with minimal adult support. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ Independent Regulation</button>
-                  <button type="button" onclick="appendText('soap-ltg', '2. Client will demonstrate age-appropriate fine motor coordination, scissor skills, and legible handwriting for school participation. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ School Handwriting</button>
-                  <button type="button" onclick="appendText('soap-ltg', '3. Client will independently complete age-appropriate self-care ADLs (dressing, feeding, grooming) without sensory distress. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ Independent ADLs</button>
-                  <button type="button" onclick="appendText('soap-ltg', '4. Client will sustain attention and follow 2–3 step instructions independently during structured learning and peer play. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ 2–3 Step Cognitive Play</button>
+                  <button type="button" onclick="appendText('soap-ltg', 'Client will demonstrate positive, compliant behavior and follow classroom and home routines with minimal adult redirection within 3–6 months. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFE8F4] border border-[#1E1B18]">+ Behavior: Classroom & Routine</button>
+                  <button type="button" onclick="appendText('soap-ltg', 'Client will inhibit impulsive actions and demonstrate appropriate turn-taking and cooperative behavior during peer/group play within 3–6 months. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFE8F4] border border-[#1E1B18]">+ Behavior: Impulse & Turn-Taking</button>
+                  <button type="button" onclick="appendText('soap-ltg', 'Client will independently regulate sensory arousal and behavior across home and classroom routines with minimal adult support. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ Independent Regulation</button>
+                  <button type="button" onclick="appendText('soap-ltg', 'Client will demonstrate age-appropriate fine motor coordination, scissor skills, and legible handwriting for school participation. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ School Handwriting</button>
+                  <button type="button" onclick="appendText('soap-ltg', 'Client will independently complete age-appropriate self-care ADLs (dressing, feeding, grooming) without sensory distress. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ Independent ADLs</button>
+                  <button type="button" onclick="appendText('soap-ltg', 'Client will sustain attention and follow 2–3 step instructions independently during structured learning and peer play. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ 2–3 Step Cognitive Play</button>
                 </div>
                 <textarea id="soap-ltg" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Enter functional Long Term Goals (LTGs)..." class="crayon-input text-sm"></textarea>
               </div>
             </div>
 
-            <!-- Therapeutic Interventions & Home Program -->
-            <div>
-              <label class="block text-xs font-bold uppercase text-[#1E1B18]/75 mb-1.5">Therapeutic Interventions & Caregiver Home Program:</label>
-              <div class="flex flex-wrap gap-1.5 mb-2.5">
-                <button type="button" onclick="appendText('soap-p', '1. Sensory Integration & Emotional Regulation: Sensory diet (vestibular/proprioceptive heavy work) & visual Zones of Regulation. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Sensory & Regulation</button>
-                <button type="button" onclick="appendText('soap-p', '2. Fine Motor & Handwriting Readiness: Proximal stability, dynamic tripod grasp facilitation, and pre-writing/letter formation drills. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Fine Motor & Writing</button>
-                <button type="button" onclick="appendText('soap-p', '3. Cognitive & Basic Concept Play: Structured multi-step matching, sorting, and attention-building games. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Cognitive & Concepts</button>
-                <button type="button" onclick="appendText('soap-p', '4. Caregiver coaching & home program provided. Review in next OT session. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Caregiver Home Program</button>
+            <!-- Therapeutic Interventions -->
+            <div class="bg-white p-3.5 rounded-2xl border-3 border-[#1E1B18]">
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <label class="block text-xs sm:text-sm font-bold text-[#1E1B18]">Therapeutic Interventions:</label>
+                <button type="button" onclick="openHandwritingPad('soap-p', 'Therapeutic Interventions')" class="crayon-btn bg-[#FFD23F] px-2.5 py-1 text-xs">
+                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
+                  <span>Pen</span>
+                </button>
               </div>
-              <textarea id="soap-p" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Outline intervention activities, caregiver education, and follow-up plan..." class="crayon-input"></textarea>
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                <button type="button" onclick="appendText('soap-p', 'Sensory Integration & Emotional Regulation: Sensory diet (vestibular/proprioceptive heavy work) & visual Zones of Regulation. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F2FFF8] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Sensory & Regulation</button>
+                <button type="button" onclick="appendText('soap-p', 'Behavioral Management & Structure: Visual First-Then schedule, countdown timers, positive reinforcement, and graded task demands. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#FFE8F4] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Behavior Management</button>
+                <button type="button" onclick="appendText('soap-p', 'Fine Motor & Handwriting Readiness: Proximal stability, dynamic tripod grasp facilitation, and pre-writing/letter formation drills. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F2FFF8] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Fine Motor & Writing</button>
+                <button type="button" onclick="appendText('soap-p', 'Cognitive & Basic Concept Play: Structured multi-step matching, sorting, and attention-building games. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F2FFF8] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Cognitive & Concepts</button>
+                <button type="button" onclick="appendText('soap-p', 'Caregiver education provided. Continue OT weekly and review progress in next session. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F2FFF8] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Follow-Up & Review</button>
+              </div>
+              <textarea id="soap-p" rows="2" oninput="updateLiveCompiledSOAPPreview()" placeholder="Outline therapeutic intervention activities and follow-up plan..." class="crayon-input text-sm"></textarea>
+            </div>
+
+            <!-- Caregiver Home Program Presets & Notes -->
+            <div class="bg-[#FFFDF0] p-3.5 rounded-2xl border-3 border-[#1E1B18]">
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <label class="block text-xs sm:text-sm font-bold text-[#FF9E44]">Caregiver Home Program (Tap to Add Recommended Home Activities):</label>
+                <button type="button" onclick="openHandwritingPad('soap-home-program', 'Caregiver Home Program')" class="crayon-btn bg-[#FFD23F] px-2.5 py-1 text-xs">
+                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
+                  <span>Pen</span>
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                <button type="button" onclick="appendText('soap-home-program', '- Sensory Diet (Heavy Work): 10–15 mins of proprioceptive activities (animal walks, wall push-ups, carrying weighted items, trampoline jumping) prior to seated/homework tasks. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Sensory Diet (Heavy Work)</button>
+                <button type="button" onclick="appendText('soap-home-program', '- Visual Schedule & Countdown Timer: Use a First-Then visual board and 2-minute countdown warnings before transitions to reduce tantrums and task refusal. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Visual Schedule & Timer</button>
+                <button type="button" onclick="appendText('soap-home-program', '- Positive Behavior Reinforcement: Use a simple star/token reward chart with immediate verbal praise for seated compliance and calm transitions. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Behavior Token Chart</button>
+                <button type="button" onclick="appendText('soap-home-program', '- Fine Motor & Grasp Drills: Daily 10-min playdough pinching, clothespin/tweezer sorting, snipping thick lines with scissors, and coloring with short broken crayons. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Fine Motor & Grasp Drills</button>
+                <button type="button" onclick="appendText('soap-home-program', '- Tactile Desensitization & Messy Play: Gradual play-based exposure to dry/wet textures (rice bin, foam, finger paint) followed by firm towel drying. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Tactile Desensitization</button>
+                <button type="button" onclick="appendText('soap-home-program', '- Oral Sensory & Mealtime Routine: Serve 1 preferred food alongside a small learning portion of a new food texture at structured family mealtimes without pressure. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Oral & Mealtime Routine</button>
+                <button type="button" onclick="appendText('soap-home-program', '- Attention & Cognitive Games: Play 2–3 step Simon Says, memory card matching, and board games encouraging turn-taking and impulse control. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Attention & Cognitive Games</button>
+                <button type="button" onclick="appendText('soap-home-program', '- Calm-Down Corner: Set up a cozy quiet corner with cushions, squeeze ball, and emotion cards for self-soothing when frustrated or overwhelmed. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Calm-Down Corner</button>
+                <button type="button" onclick="appendText('soap-home-program', '- ADL & Self-Care Practice: Practice dressing fasteners (buttons/zips) via backward chaining, independent utensil use, and a consistent calming bedtime routine. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ ADL & Self-Care Practice</button>
+              </div>
+              <textarea id="soap-home-program" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Tap any Home Program chip above or write customized caregiver instructions..." class="crayon-input text-sm"></textarea>
             </div>
           </div>
 
@@ -3839,6 +3876,12 @@
     function buildCompleteSOAPDocumentText() {
       const sections = [];
 
+      // Diagnosis right at the top before [S] SUBJECTIVE (only if filled in Patient Details)
+      const diagnosisText = document.getElementById('pt-diagnosis')?.value.trim() || '';
+      if (diagnosisText) {
+        sections.push(`Diagnosis: ${diagnosisText}`);
+      }
+
       // [S] SUBJECTIVE (Only if filled)
       const attendanceLine = getSubjectiveAttendanceLine();
       const rawSubjective = document.getElementById('soap-s')?.value.trim() || '';
@@ -3863,14 +3906,16 @@
         sections.push(`[A] ASSESSMENT:\n${assessmentText}`);
       }
 
-      // [P] PLAN (Short Term Goals, Long Term Goals & Interventions — Only if filled)
+      // [P] PLAN (Short Term Goals, Long Term Goals, Interventions & Home Program — Only if filled)
       const stgText = document.getElementById('soap-stg')?.value.trim() || '';
       const ltgText = document.getElementById('soap-ltg')?.value.trim() || '';
       const planText = document.getElementById('soap-p')?.value.trim() || '';
+      const homeProgramText = document.getElementById('soap-home-program')?.value.trim() || '';
       const planParts = [];
       if (stgText) planParts.push(`Short Term Goals (STGs):\n${stgText}`);
       if (ltgText) planParts.push(`Long Term Goals (LTGs):\n${ltgText}`);
-      if (planText) planParts.push(planText);
+      if (planText) planParts.push(`Therapeutic Interventions:\n${planText}`);
+      if (homeProgramText) planParts.push(`Home Program:\n${homeProgramText}`);
       if (planParts.length > 0) {
         sections.push(`[P] PLAN:\n${planParts.join('\n\n')}`);
       }
@@ -3910,7 +3955,9 @@
       if (state.patient.dob || state.patient.ageText) ptLines.push(`DOB & Age    : ${state.patient.dob}${state.patient.ageText ? ` (${state.patient.ageText})` : ''}`);
       if (state.patient.gender) ptLines.push(`Gender       : ${state.patient.gender}`);
       if (state.patient.rn) ptLines.push(`RN Number    : ${state.patient.rn}`);
-      if (state.patient.diagnosis) ptLines.push(`Diagnosis    : ${state.patient.diagnosis}`);
+      if (state.patient.diagnosis && !soapBody.startsWith('Diagnosis:')) {
+        ptLines.push(`Diagnosis    : ${state.patient.diagnosis}`);
+      }
 
       const pdfContent = [ptLines.join('\n'), soapBody].filter(Boolean).join('\n\n');
 
@@ -4043,6 +4090,7 @@
           stg: document.getElementById('soap-stg')?.value || '',
           ltg: document.getElementById('soap-ltg')?.value || '',
           p: document.getElementById('soap-p')?.value || '',
+          homeProgram: document.getElementById('soap-home-program')?.value || '',
           behavior: document.getElementById('obs-behavior')?.value || '',
           emotion: document.getElementById('obs-emotion')?.value || '',
           concept: document.getElementById('obs-concept')?.value || '',
@@ -4138,6 +4186,7 @@
       setVal('soap-stg', soap.stg || '');
       setVal('soap-ltg', soap.ltg || '');
       setVal('soap-p', soap.p || '');
+      setVal('soap-home-program', soap.homeProgram || '');
       setVal('obs-behavior', soap.behavior || '');
       setVal('obs-emotion', soap.emotion || '');
       setVal('obs-concept', soap.concept || '');
@@ -4242,7 +4291,8 @@
       state.isCompiledSOAPManuallyEdited = false;
       ['pt-name', 'pt-mykid', 'pt-dob', 'pt-gender', 'pt-diagnosis', 'pt-rn', 'pt-informant',
        'soap-came-with', 'soap-entered-room-with',
-       'soap-s', 'soap-o', 'soap-a', 'soap-stg', 'soap-ltg', 'soap-p', 'obs-behavior', 'obs-emotion', 'obs-concept',
+       'soap-s', 'soap-o', 'soap-a', 'soap-stg', 'soap-ltg', 'soap-p', 'soap-home-program',
+       'obs-behavior', 'obs-emotion', 'obs-concept',
        'obs-cognitive', 'obs-finemotor', 'obs-sensory', 'live-soap-compiled-preview',
        'denver-notes', 'ssp-filled-by', 'sp2-filled-by', 'shore-school', 'shore-speed', 'shore-notes'].forEach(id => {
         const el = document.getElementById(id);
