@@ -509,7 +509,7 @@
                 <span>Pediatric OT SOAP Notes & Clinical Observations</span>
               </h2>
               <p class="text-sm font-medium text-[#1E1B18]/75 mt-1">
-                Document Subjective attendance, structured Objective observations, Assessment, and Plan. Only completed items appear in your compiled SOAP note!
+                Document Subjective attendance, structured Objective observations, Assessment, and Plan (STGs & LTGs). Only completed items appear in your compiled SOAP note!
               </p>
             </div>
             <div class="flex flex-wrap gap-2">
@@ -556,6 +556,12 @@
                     <span>Pen</span>
                   </button>
                 </div>
+                <div class="flex flex-wrap gap-1 mt-1.5">
+                  <button type="button" onclick="setCameWith('father')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFE8F4] border border-[#1E1B18]">+ Father</button>
+                  <button type="button" onclick="setCameWith('mother')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFE8F4] border border-[#1E1B18]">+ Mother</button>
+                  <button type="button" onclick="setCameWith('family')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFE8F4] border border-[#1E1B18]">+ Family</button>
+                  <button type="button" onclick="setCameWith('parents')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#FFE8F4] border border-[#1E1B18]">+ Parents</button>
+                </div>
               </div>
               <div>
                 <label class="block text-xs font-bold text-[#8B95F6] mb-1">Entered treatment room with:</label>
@@ -591,7 +597,7 @@
                 <span>Objective — Clinical Functional Observation Domains</span>
               </div>
               <span class="text-xs font-bold px-3 py-1 rounded-full bg-white border-2 border-[#1E1B18]">
-                Only rated/filled items appear in Compiled SOAP & PDF
+                Auto-synced directly into Compiled SOAP & PDF
               </span>
             </div>
 
@@ -611,7 +617,7 @@
                 <div id="fm-manipulation-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5"></div>
               </div>
 
-              <!-- Typical Pencil Grasp Development Patterns (Tickable Grasp Cards) -->
+              <!-- Typical Pencil Grasp Development Patterns (Direct Tickable Cards) -->
               <div class="pt-1">
                 <div class="text-xs font-bold uppercase text-[#1E1B18]/70 mb-2">Typical Pencil Grasp Pattern Observed (Tick Observed Grasp Pattern):</div>
                 <div id="fm-grasp-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5"></div>
@@ -709,11 +715,11 @@
                   <span>Pen</span>
                 </button>
               </div>
-              <textarea id="soap-o" rows="4" oninput="updateLiveCompiledSOAPPreview()" placeholder="Standardized results from Denver II, SSP, Sensory Profile 2, and Shore Handwriting Screening will appear here..." class="crayon-input"></textarea>
+              <textarea id="soap-o" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Standardized results from Denver II, SSP, Sensory Profile 2, and Shore Handwriting Screening will appear here..." class="crayon-input"></textarea>
             </div>
           </div>
 
-          <!-- A: ASSESSMENT -->
+          <!-- A: ASSESSMENT (EXPANDED ONE-TAP CLINICAL REASONING & STRENGTHS) -->
           <div class="crayon-card-yellow p-4 mb-5">
             <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
               <label class="text-base sm:text-lg font-bold flex items-center gap-2">
@@ -726,48 +732,105 @@
               </button>
             </div>
             <div class="flex flex-wrap gap-1.5 mb-2.5">
-              <button type="button" onclick="appendText('soap-a', 'Occupational performance in play, self-regulation, and school readiness is impacted by sensory modulation differences and fine motor/praxis delays. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Sensory & Praxis Impact</button>
-              <button type="button" onclick="appendText('soap-a', 'Child demonstrates good rapport with therapist and responds well to structured visual schedules and sensory-motor strategies. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Client Strengths</button>
+              <button type="button" onclick="appendText('soap-a', 'Occupational performance in play, self-regulation, and school readiness is impacted by sensory modulation differences (sensory seeking/avoiding) affecting arousal control. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Sensory Modulation</button>
+              <button type="button" onclick="appendText('soap-a', 'Fine motor precision, in-hand manipulation, and immature pencil grasp limit pre-writing stroke accuracy, coloring control, and handwriting legibility. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Fine Motor & Grasp</button>
+              <button type="button" onclick="appendText('soap-a', 'Reduced postural stability, core endurance, and bilateral hand coordination impact tabletop task persistence and tool use. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Praxis & Bilateral</button>
+              <button type="button" onclick="appendText('soap-a', 'Short sustained attention span, distractibility, and reduced impulse control affect multi-step task completion in structured settings. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Attention & Executive</button>
+              <button type="button" onclick="appendText('soap-a', 'Impaired working memory, task sequencing, and cognitive organization limit the child\'s ability to retain and execute multi-step instructions independently. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#E8FFF3] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Cognitive: Memory & Sequencing</button>
+              <button type="button" onclick="appendText('soap-a', 'Reduced cognitive flexibility, mental shifting, and problem-solving skills cause rigidity and difficulty adapting when play or routine demands change. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#E8FFF3] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Cognitive: Problem Solving & Shifting</button>
+              <button type="button" onclick="appendText('soap-a', 'Delayed cognitive information processing speed and task initiation require repeated verbal/visual prompting to sustain goal-directed play and learning. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#E8FFF3] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Cognitive: Processing & Initiation</button>
+              <button type="button" onclick="appendText('soap-a', 'Limited joint attention, fleeting eye contact, and reduced social referencing impact reciprocal engagement with adults and peers during play. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#FFE8F4] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Social: Joint Attention & Eye Contact</button>
+              <button type="button" onclick="appendText('soap-a', 'Challenges with cooperative turn-taking, sharing, and maintaining peer interactions restrict age-appropriate social play participation. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#FFE8F4] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Social: Turn-Taking & Peer Play</button>
+              <button type="button" onclick="appendText('soap-a', 'Difficulty interpreting non-verbal social cues, facial expressions, and personal space boundaries affects social reciprocity and group participation. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#FFE8F4] border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Social: Social Cues & Reciprocity</button>
+              <button type="button" onclick="appendText('soap-a', 'Low frustration tolerance and difficulty coping with transitions or sensory overload impact social play and emotional regulation. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Emotional Regulation</button>
+              <button type="button" onclick="appendText('soap-a', 'Emerging basic concept recognition and receptive understanding require structured visual-tactile cues to support early academic readiness. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Basic Concepts & Readiness</button>
+              <button type="button" onclick="appendText('soap-a', 'Self-care and ADL independence (feeding, dressing, grooming) are affected by tactile sensitivity and motor planning challenges. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ ADL & Self-Care</button>
+              <button type="button" onclick="appendText('soap-a', 'Client strengths include positive rapport with therapist, curiosity toward hands-on play, and favorable response to visual schedules and sensory-motor strategies. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Client Strengths</button>
+              <button type="button" onclick="appendText('soap-a', 'Child demonstrates good rehabilitation potential and will benefit from ongoing skilled Pediatric OT intervention alongside consistent caregiver home carryover. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Good Rehab Potential</button>
             </div>
             <textarea id="soap-a" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Synthesize clinical interpretation, functional strengths, barriers to participation, and rehab potential..." class="crayon-input"></textarea>
           </div>
 
-          <!-- P: PLAN -->
-          <div class="crayon-card-mint p-4 mb-5">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <!-- P: PLAN (SHORT TERM GOALS, LONG TERM GOALS & THERAPEUTIC INTERVENTIONS) -->
+          <div class="crayon-card-mint p-4 mb-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
               <label class="text-base sm:text-lg font-bold flex items-center gap-2">
                 <span class="w-8 h-8 rounded-full bg-[#4CC38A] text-white border-2 border-[#1E1B18] flex items-center justify-center font-bold">P</span>
-                <span>Plan (OT Goals, Therapeutic Interventions & Home Program)</span>
+                <span>Plan (Short Term Goals, Long Term Goals & Therapeutic Interventions)</span>
               </label>
               <button type="button" onclick="openHandwritingPad('soap-p', 'Intervention Plan (P)')" class="crayon-btn bg-[#FFD23F] px-3.5 py-1.5 text-xs sm:text-sm">
                 <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
                 <span>Write with Pen</span>
               </button>
             </div>
-            <div class="flex flex-wrap gap-1.5 mb-2.5">
-              <button type="button" onclick="appendText('soap-p', '1. Sensory Integration & Emotional Regulation: Sensory diet (vestibular/proprioceptive heavy work) & visual Zones of Regulation. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Sensory & Regulation</button>
-              <button type="button" onclick="appendText('soap-p', '2. Fine Motor & Handwriting Readiness: Proximal stability, dynamic tripod grasp facilitation, and pre-writing/letter formation drills. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Fine Motor & Writing</button>
-              <button type="button" onclick="appendText('soap-p', '3. Cognitive & Basic Concept Play: Structured multi-step matching, sorting, and attention-building games. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Cognitive & Concepts</button>
-              <button type="button" onclick="appendText('soap-p', '4. Caregiver coaching & home program provided. Review in next OT session. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Caregiver Home Program</button>
+
+            <!-- Short Term Goals (STGs) & Long Term Goals (LTGs) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+              <!-- Short Term Goals (STGs) -->
+              <div class="bg-white p-3.5 rounded-2xl border-3 border-[#1E1B18]">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <label class="font-bold text-sm text-[#059669]">Short Term Goals (STGs — 4–8 Weeks)</label>
+                  <button type="button" onclick="openHandwritingPad('soap-stg', 'Short Term Goals (STGs)')" class="crayon-btn bg-[#FFD23F] px-2.5 py-1 text-xs">
+                    <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
+                    <span>Pen</span>
+                  </button>
+                </div>
+                <div class="flex flex-wrap gap-1 mb-2">
+                  <button type="button" onclick="appendText('soap-stg', '1. Client will tolerate and engage in structured tabletop tasks for 10–15 minutes with max 1 visual/verbal prompt within 6 weeks. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Attention 10–15m</button>
+                  <button type="button" onclick="appendText('soap-stg', '2. Client will demonstrate functional tripod grasp with improved in-hand manipulation during pre-writing/coloring tasks within 6 weeks. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Tripod Grasp</button>
+                  <button type="button" onclick="appendText('soap-stg', '3. Client will utilize sensory-motor calming strategies with co-regulation to recover from frustration within 2 minutes. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Self-Regulation</button>
+                  <button type="button" onclick="appendText('soap-stg', '4. Client will accurately identify and match basic concepts (colors, shapes, numbers) with 80% accuracy. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E8FFF3] border border-[#1E1B18]">+ Basic Concepts 80%</button>
+                </div>
+                <textarea id="soap-stg" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Enter measurable Short Term Goals (STGs)..." class="crayon-input text-sm"></textarea>
+              </div>
+
+              <!-- Long Term Goals (LTGs) -->
+              <div class="bg-white p-3.5 rounded-2xl border-3 border-[#1E1B18]">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <label class="font-bold text-sm text-[#0284C7]">Long Term Goals (LTGs — 3–6 Months)</label>
+                  <button type="button" onclick="openHandwritingPad('soap-ltg', 'Long Term Goals (LTGs)')" class="crayon-btn bg-[#FFD23F] px-2.5 py-1 text-xs">
+                    <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
+                    <span>Pen</span>
+                  </button>
+                </div>
+                <div class="flex flex-wrap gap-1 mb-2">
+                  <button type="button" onclick="appendText('soap-ltg', '1. Client will independently regulate sensory arousal and behavior across home and classroom routines with minimal adult support. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ Independent Regulation</button>
+                  <button type="button" onclick="appendText('soap-ltg', '2. Client will demonstrate age-appropriate fine motor coordination, scissor skills, and legible handwriting for school participation. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ School Handwriting</button>
+                  <button type="button" onclick="appendText('soap-ltg', '3. Client will independently complete age-appropriate self-care ADLs (dressing, feeding, grooming) without sensory distress. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ Independent ADLs</button>
+                  <button type="button" onclick="appendText('soap-ltg', '4. Client will sustain attention and follow 2–3 step instructions independently during structured learning and peer play. ')" class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-[#E6FAFD] border border-[#1E1B18]">+ 2–3 Step Cognitive Play</button>
+                </div>
+                <textarea id="soap-ltg" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Enter functional Long Term Goals (LTGs)..." class="crayon-input text-sm"></textarea>
+              </div>
             </div>
-            <textarea id="soap-p" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Outline STGs/LTGs, intervention activities, caregiver education, and follow-up plan..." class="crayon-input"></textarea>
+
+            <!-- Therapeutic Interventions & Home Program -->
+            <div>
+              <label class="block text-xs font-bold uppercase text-[#1E1B18]/75 mb-1.5">Therapeutic Interventions & Caregiver Home Program:</label>
+              <div class="flex flex-wrap gap-1.5 mb-2.5">
+                <button type="button" onclick="appendText('soap-p', '1. Sensory Integration & Emotional Regulation: Sensory diet (vestibular/proprioceptive heavy work) & visual Zones of Regulation. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Sensory & Regulation</button>
+                <button type="button" onclick="appendText('soap-p', '2. Fine Motor & Handwriting Readiness: Proximal stability, dynamic tripod grasp facilitation, and pre-writing/letter formation drills. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Fine Motor & Writing</button>
+                <button type="button" onclick="appendText('soap-p', '3. Cognitive & Basic Concept Play: Structured multi-step matching, sorting, and attention-building games. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Cognitive & Concepts</button>
+                <button type="button" onclick="appendText('soap-p', '4. Caregiver coaching & home program provided. Review in next OT session. ')" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white border-2 border-[#1E1B18] hover:bg-[#FFD23F]">+ Caregiver Home Program</button>
+              </div>
+              <textarea id="soap-p" rows="3" oninput="updateLiveCompiledSOAPPreview()" placeholder="Outline intervention activities, caregiver education, and follow-up plan..." class="crayon-input"></textarea>
+            </div>
           </div>
 
-          <!-- COMPLETE COMPILED SOAP NOTES (PURE [S][O][A][P] — EDITABLE + SAVE NOTE TO SAVED RECORDS) -->
+          <!-- COMPLETE COMPILED SOAP NOTE (EDITABLE DIRECTLY BELOW PLAN + SAVE NOTE) -->
           <div class="crayon-card p-4 sm:p-5 bg-[#FFFDF9]">
             <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b-2 border-dashed border-[#1E1B18]/20">
               <div>
                 <h3 class="text-base sm:text-lg font-bold flex items-center gap-2">
                   <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z" fill="#E6FAFD" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/><line x1="9" y1="11" x2="16" y2="11" stroke="#1E1B18" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="15" x2="16" y2="15" stroke="#1E1B18" stroke-width="2" stroke-linecap="round"/></svg>
-                  <span>Complete Compiled SOAP Note (Editable — Ready to Copy & Paste)</span>
+                  <span>Complete Compiled SOAP Note (Editable)</span>
                 </h3>
                 <p class="text-xs font-medium text-[#1E1B18]/75">
-                  Pure SOAP text only (no extra headers, lines, or footers)—tap <strong>Copy Full Note</strong> to paste directly, or <strong>Save Note</strong> to store in Saved Records!
+                  Auto-compiled in English with only what you filled in — tap directly inside the box to edit any text, then tap <strong>Save Note</strong> to store in Saved Records!
                 </p>
               </div>
               <div class="flex flex-wrap gap-2">
-                <button type="button" onclick="saveCurrentRecordToCloud()" class="crayon-btn bg-[#FFD23F] text-[#1E1B18] px-3.5 py-1.5 text-xs font-bold">
-                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z" fill="#56CFE1" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/><rect x="8" y="4" width="7" height="5" fill="#FFFDF9" stroke="#1E1B18" stroke-width="1.8"/><rect x="8" y="13" width="8" height="7" fill="#FF6BB5" stroke="#1E1B18" stroke-width="1.8"/></svg>
+                <button type="button" onclick="saveCompiledNoteDirectly()" class="crayon-btn bg-[#FFD23F] text-[#1E1B18] px-3.5 py-1.5 text-xs font-bold">
+                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z" fill="#4CC38A" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/><rect x="8" y="4" width="7" height="5" fill="#FFFDF9" stroke="#1E1B18" stroke-width="1.8"/></svg>
                   <span>Save Note</span>
                 </button>
                 <button type="button" onclick="copyCompleteSOAPNote()" class="crayon-btn bg-[#4CC38A] text-white px-3.5 py-1.5 text-xs font-bold">
@@ -782,17 +845,17 @@
                   <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 6.8 9.2 3.8 3.8 0 0 0 7 18z" fill="#56CFE1" stroke="#1E1B18" stroke-width="2"/></svg>
                   <span>Google Drive</span>
                 </button>
-                <button type="button" onclick="openHandwritingPad('live-soap-compiled-preview', 'Complete Compiled SOAP Note')" class="crayon-btn bg-white text-[#1E1B18] px-3 py-1.5 text-xs font-bold">
+                <button type="button" onclick="openHandwritingPad('live-soap-compiled-preview', 'Compiled SOAP Note')" class="crayon-btn bg-white text-[#1E1B18] px-3 py-1.5 text-xs font-bold">
                   <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
                   <span>Pen</span>
                 </button>
-                <button type="button" onclick="refreshCompiledSOAPFromForm()" class="crayon-btn bg-[#E6FAFD] text-[#1E1B18] px-3 py-1.5 text-xs font-bold" title="Regenerate from fields above">
-                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 2 5.3M20 4v7h-7" fill="none" stroke="#1E1B18" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <button type="button" onclick="resyncCompiledSOAPFromFields()" class="crayon-btn bg-[#E6FAFD] text-[#1E1B18] px-3 py-1.5 text-xs font-bold" title="Refresh from fields above">
+                  <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.6-5.7L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.6 5.7L4 15.5M4 20v-4.5h4.5" fill="none" stroke="#1E1B18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <span>Re-sync</span>
                 </button>
               </div>
             </div>
-            <textarea id="live-soap-compiled-preview" rows="18" oninput="handleDirectCompiledSOAPEdit()" placeholder="Your compiled English SOAP note ([S], [O], [A], [P]) will appear here automatically as you fill in the sections above..." class="w-full bg-[#F8FAFC] border-3 border-[#1E1B18] rounded-2xl p-4 text-xs sm:text-sm font-medium leading-relaxed text-[#1E1B18] focus:outline-none focus:border-[#FF6BB5] focus:bg-white"></textarea>
+            <textarea id="live-soap-compiled-preview" rows="16" oninput="handleCompiledSOAPManualEdit()" placeholder="Your compiled SOAP note appears here as you fill in any section above — or you can type/edit directly here..." class="w-full bg-[#F8FAFC] border-3 border-[#1E1B18] rounded-2xl p-4 text-xs sm:text-sm font-medium leading-relaxed text-[#1E1B18] focus:outline-none focus:border-[#FF6BB5]"></textarea>
           </div>
         </div>
       </section>
@@ -1587,7 +1650,7 @@
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- ========================================================================
-       APPLICATION CORE LOGIC (100% NON-BLOCKING & GLOBALLY BOUND)
+       APPLICATION CORE LOGIC (100% NON-BLOCKING, NULL-SAFE & GLOBALLY BOUND)
        ======================================================================== -->
   <script>
     /* ========================================================================
@@ -2311,7 +2374,7 @@
 
       const mascotMsgs = {
         patient: "Let's check patient details or scan MyKid!",
-        soap: "Document Subjective attendance & Objective observations!",
+        soap: "Document Subjective attendance, Objective domains, Assessment & Goals!",
         denver: "Official Denver II age-line & percentile screening!",
         ssp: "Bilingual Short Sensory Profile (EN / BM) ready!",
         sp2: "Bilingual Infant/Toddler/Child Sensory Profile 2 ready!",
@@ -2409,9 +2472,11 @@
       state.patient.mykid = val;
       const parsed = parseMalaysianMyKid(val);
       if (parsed) {
-        document.getElementById('pt-dob').value = parsed.dobIso;
+        const dobEl = document.getElementById('pt-dob');
+        if (dobEl) dobEl.value = parsed.dobIso;
         if (parsed.gender) {
-          document.getElementById('pt-gender').value = parsed.gender;
+          const genEl = document.getElementById('pt-gender');
+          if (genEl) genEl.value = parsed.gender;
         }
         handleDobChange(parsed.dobIso);
       } else {
@@ -2422,7 +2487,7 @@
 
     function handleDobChange(dobIso) {
       state.patient.dob = dobIso;
-      const refDate = document.getElementById('pt-session-date').value;
+      const refDate = document.getElementById('pt-session-date')?.value;
       const age = calculateExactAge(dobIso, refDate);
       const displayEl = document.getElementById('exact-age-display');
       const sp2RecEl = document.getElementById('age-sp2-recommendation');
@@ -2430,7 +2495,7 @@
       if (age) {
         state.patient.ageObj = age;
         state.patient.ageText = age.formatted;
-        displayEl.textContent = age.formatted;
+        if (displayEl) displayEl.textContent = age.formatted;
 
         const denverAgeInput = document.getElementById('denver-age-months');
         if (denverAgeInput && age.totalMonths <= 72) {
@@ -2440,20 +2505,20 @@
 
         const sp2Select = document.getElementById('sp2-age-form');
         if (age.totalMonths <= 6) {
-          sp2RecEl.textContent = "Recommended SP2: Infant (Birth – 6 Months)";
+          if (sp2RecEl) sp2RecEl.textContent = "Recommended SP2: Infant (Birth – 6 Months)";
           if (sp2Select) { sp2Select.value = "infant"; handleSP2FormChange(); }
         } else if (age.totalMonths <= 35) {
-          sp2RecEl.textContent = "Recommended SP2: Toddler (7 – 35 Months)";
+          if (sp2RecEl) sp2RecEl.textContent = "Recommended SP2: Toddler (7 – 35 Months)";
           if (sp2Select) { sp2Select.value = "toddler"; handleSP2FormChange(); }
         } else {
-          sp2RecEl.textContent = "Recommended SP2: Child (3:0 – 14:11 Years)";
+          if (sp2RecEl) sp2RecEl.textContent = "Recommended SP2: Child (3:0 – 14:11 Years)";
           if (sp2Select) { sp2Select.value = "child"; handleSP2FormChange(); }
         }
       } else {
         state.patient.ageObj = null;
         state.patient.ageText = "";
-        displayEl.textContent = "Enter MyKid or Date of Birth";
-        sp2RecEl.textContent = "Sensory Profile 2 Group: Pending Age";
+        if (displayEl) displayEl.textContent = "Enter MyKid or Date of Birth";
+        if (sp2RecEl) sp2RecEl.textContent = "Sensory Profile 2 Group: Pending Age";
       }
       syncPatientState();
     }
@@ -2468,6 +2533,11 @@
     }
     window.syncInformantFields = syncInformantFields;
 
+    function setCameWith(val) {
+      syncInformantFields(val);
+    }
+    window.setCameWith = setCameWith;
+
     function setEnteredRoomWith(val) {
       const el = document.getElementById('soap-entered-room-with');
       if (el) {
@@ -2478,21 +2548,23 @@
     window.setEnteredRoomWith = setEnteredRoomWith;
 
     function syncPatientState() {
-      state.patient.name = document.getElementById('pt-name').value.trim();
-      state.patient.mykid = document.getElementById('pt-mykid').value.trim();
-      state.patient.dob = document.getElementById('pt-dob').value;
-      state.patient.gender = document.getElementById('pt-gender').value;
-      state.patient.diagnosis = document.getElementById('pt-diagnosis').value.trim();
-      state.patient.rn = document.getElementById('pt-rn').value.trim();
-      state.patient.informant = document.getElementById('pt-informant').value.trim();
-      state.patient.sessionDate = document.getElementById('pt-session-date').value;
-      state.patient.therapist = document.getElementById('pt-therapist').value.trim() || 'OT Ezlyana';
+      state.patient.name = document.getElementById('pt-name')?.value.trim() || '';
+      state.patient.mykid = document.getElementById('pt-mykid')?.value.trim() || '';
+      state.patient.dob = document.getElementById('pt-dob')?.value || '';
+      state.patient.gender = document.getElementById('pt-gender')?.value || '';
+      state.patient.diagnosis = document.getElementById('pt-diagnosis')?.value.trim() || '';
+      state.patient.rn = document.getElementById('pt-rn')?.value.trim() || '';
+      state.patient.informant = document.getElementById('pt-informant')?.value.trim() || '';
+      state.patient.sessionDate = document.getElementById('pt-session-date')?.value || '';
+      state.patient.therapist = document.getElementById('pt-therapist')?.value.trim() || 'OT Ezlyana';
 
       const badge = document.getElementById('header-patient-summary');
-      if (state.patient.name) {
-        badge.textContent = `${state.patient.name}${state.patient.ageText ? ' • ' + state.patient.ageText : ''}`;
-      } else {
-        badge.textContent = "No Patient Selected Yet";
+      if (badge) {
+        if (state.patient.name) {
+          badge.textContent = `${state.patient.name}${state.patient.ageText ? ' • ' + state.patient.ageText : ''}`;
+        } else {
+          badge.textContent = "No Patient Selected Yet";
+        }
       }
       updateLiveCompiledSOAPPreview();
     }
@@ -2505,10 +2577,11 @@
 
     async function openCameraScannerModal() {
       const modal = document.getElementById('camera-modal');
-      modal.classList.remove('hidden');
-      document.getElementById('scan-result-box').classList.add('hidden');
+      if (modal) modal.classList.remove('hidden');
+      const resBox = document.getElementById('scan-result-box');
+      if (resBox) resBox.classList.add('hidden');
       const statusPill = document.getElementById('ocr-status-pill');
-      statusPill.textContent = "Starting Camera...";
+      if (statusPill) statusPill.textContent = "Starting Camera...";
 
       try {
         activeCameraStream = await navigator.mediaDevices.getUserMedia({
@@ -2516,16 +2589,17 @@
           audio: false
         });
         const video = document.getElementById('scanner-video');
-        video.srcObject = activeCameraStream;
-        statusPill.textContent = "Ready — Tap Snap & Auto-Extract";
+        if (video) video.srcObject = activeCameraStream;
+        if (statusPill) statusPill.textContent = "Ready — Tap Snap & Auto-Extract";
       } catch (err) {
-        statusPill.textContent = "Camera blocked — Use Upload Photo or Demo Sample";
+        if (statusPill) statusPill.textContent = "Camera blocked — Use Upload Photo or Demo Sample";
       }
     }
     window.openCameraScannerModal = openCameraScannerModal;
 
     function closeCameraScannerModal() {
-      document.getElementById('camera-modal').classList.add('hidden');
+      const modal = document.getElementById('camera-modal');
+      if (modal) modal.classList.add('hidden');
       if (activeCameraStream) {
         activeCameraStream.getTracks().forEach(track => track.stop());
         activeCameraStream = null;
@@ -2536,7 +2610,7 @@
     async function captureAndScanMyKid() {
       const video = document.getElementById('scanner-video');
       const canvas = document.getElementById('scanner-capture-canvas');
-      if (!video.videoWidth) {
+      if (!video || !canvas || !video.videoWidth) {
         showToast("Camera frame not ready yet — try Upload Photo or Demo Sample!", "#FF9E44", "#FFFFFF");
         return;
       }
@@ -2553,6 +2627,7 @@
       const img = new Image();
       img.onload = async () => {
         const canvas = document.getElementById('scanner-capture-canvas');
+        if (!canvas) return;
         canvas.width = img.width;
         canvas.height = img.height;
         canvas.getContext('2d').drawImage(img, 0, 0);
@@ -2564,14 +2639,14 @@
 
     async function runCardOCR(canvasSource) {
       const statusPill = document.getElementById('ocr-status-pill');
-      statusPill.textContent = "Scanning MyKid & Name...";
+      if (statusPill) statusPill.textContent = "Scanning MyKid & Name...";
       try {
         if (!window.Tesseract) throw new Error("OCR engine still loading");
         const { data: { text } } = await window.Tesseract.recognize(canvasSource, 'eng');
         extractAndApplyPatientDataFromText(text);
-        statusPill.textContent = "Scan Complete!";
+        if (statusPill) statusPill.textContent = "Scan Complete!";
       } catch (err) {
-        statusPill.textContent = "Could not read clearly — try closer lighting or Demo Sample";
+        if (statusPill) statusPill.textContent = "Could not read clearly — try closer lighting or Demo Sample";
         showToast("Scan unclear — try closer lighting or Demo Sample!", "#FF9E44", "#FFFFFF");
       }
     }
@@ -2591,9 +2666,13 @@
         }
       }
 
-      if (detectedName) document.getElementById('pt-name').value = detectedName;
+      if (detectedName) {
+        const nameEl = document.getElementById('pt-name');
+        if (nameEl) nameEl.value = detectedName;
+      }
       if (detectedMyKid) {
-        document.getElementById('pt-mykid').value = detectedMyKid;
+        const mykidEl = document.getElementById('pt-mykid');
+        if (mykidEl) mykidEl.value = detectedMyKid;
         handleMyKidInput(detectedMyKid);
       } else {
         syncPatientState();
@@ -2601,12 +2680,14 @@
 
       const resBox = document.getElementById('scan-result-box');
       const resDetails = document.getElementById('scan-result-details');
-      resBox.classList.remove('hidden');
-      resDetails.innerHTML = `
-        <div><strong>Name:</strong> ${detectedName || 'Not detected (enter manually)'}</div>
-        <div><strong>MyKid:</strong> ${detectedMyKid || 'Not detected'}</div>
-        <div><strong>Auto-Age:</strong> ${state.patient.ageText || 'Pending DOB'}</div>
-      `;
+      if (resBox) resBox.classList.remove('hidden');
+      if (resDetails) {
+        resDetails.innerHTML = `
+          <div><strong>Name:</strong> ${detectedName || 'Not detected (enter manually)'}</div>
+          <div><strong>MyKid:</strong> ${detectedMyKid || 'Not detected'}</div>
+          <div><strong>Auto-Age:</strong> ${state.patient.ageText || 'Pending DOB'}</div>
+        `;
+      }
       triggerMascotCheer("Awesome! Patient details & exact age auto-filled!");
       showToast("MyKid details & exact age extracted!", "#4CC38A", "#FFFFFF");
     }
@@ -2614,18 +2695,22 @@
     function simulateSampleMyKidScan() {
       const sampleName = "NUR AISYAH HUMAIRA BINTI ZULKIFLI";
       const sampleMyKid = "190817-10-5642";
-      document.getElementById('pt-name').value = sampleName;
-      document.getElementById('pt-mykid').value = sampleMyKid;
+      const nameEl = document.getElementById('pt-name');
+      const mykidEl = document.getElementById('pt-mykid');
+      if (nameEl) nameEl.value = sampleName;
+      if (mykidEl) mykidEl.value = sampleMyKid;
       handleMyKidInput(sampleMyKid);
 
       const resBox = document.getElementById('scan-result-box');
       const resDetails = document.getElementById('scan-result-details');
-      resBox.classList.remove('hidden');
-      resDetails.innerHTML = `
-        <div><strong>Name:</strong> ${sampleName}</div>
-        <div><strong>MyKid:</strong> ${sampleMyKid}</div>
-        <div><strong>Auto-Age:</strong> ${state.patient.ageText}</div>
-      `;
+      if (resBox) resBox.classList.remove('hidden');
+      if (resDetails) {
+        resDetails.innerHTML = `
+          <div><strong>Name:</strong> ${sampleName}</div>
+          <div><strong>MyKid:</strong> ${sampleMyKid}</div>
+          <div><strong>Auto-Age:</strong> ${state.patient.ageText}</div>
+        `;
+      }
       triggerMascotCheer("Sample MyKid scanned & exact age calculated!");
       showToast("Sample MyKid applied!", "#4CC38A", "#FFFFFF");
     }
@@ -2690,7 +2775,7 @@
     }
 
     function resizeHandwritingCanvas() {
-      if (!hwCanvas) return;
+      if (!hwCanvas || !hwCtx) return;
       const rect = hwCanvas.getBoundingClientRect();
       const dpr = Math.max(window.devicePixelRatio || 1, 2);
       hwCanvas.width = Math.max(rect.width, 300) * dpr;
@@ -2744,19 +2829,25 @@
 
     function openHandwritingPad(targetId, labelText) {
       hwTargetElementId = targetId;
-      document.getElementById('hw-target-label').textContent = labelText;
-      document.getElementById('hw-recognized-text').value = '';
-      document.getElementById('hw-ocr-status').textContent = 'Ready for Apple Pencil / Touch';
+      const labelEl = document.getElementById('hw-target-label');
+      const textEl = document.getElementById('hw-recognized-text');
+      const statusEl = document.getElementById('hw-ocr-status');
+      const modalEl = document.getElementById('handwriting-modal');
+
+      if (labelEl) labelEl.textContent = labelText;
+      if (textEl) textEl.value = '';
+      if (statusEl) statusEl.textContent = 'Ready for Apple Pencil / Touch';
       hwStrokes = [];
       hwCurrentStroke = [];
-      document.getElementById('handwriting-modal').classList.remove('hidden');
+      if (modalEl) modalEl.classList.remove('hidden');
       setTimeout(resizeHandwritingCanvas, 60);
     }
     window.openHandwritingPad = openHandwritingPad;
 
     function closeHandwritingPad() {
       if (hwAutoTraceTimer) clearTimeout(hwAutoTraceTimer);
-      document.getElementById('handwriting-modal').classList.add('hidden');
+      const modalEl = document.getElementById('handwriting-modal');
+      if (modalEl) modalEl.classList.add('hidden');
     }
     window.closeHandwritingPad = closeHandwritingPad;
 
@@ -2776,8 +2867,10 @@
       if (hwAutoTraceTimer) clearTimeout(hwAutoTraceTimer);
       hwStrokes = [];
       hwCurrentStroke = [];
-      document.getElementById('hw-recognized-text').value = '';
-      document.getElementById('hw-ocr-status').textContent = 'Canvas Cleared';
+      const textEl = document.getElementById('hw-recognized-text');
+      const statusEl = document.getElementById('hw-ocr-status');
+      if (textEl) textEl.value = '';
+      if (statusEl) statusEl.textContent = 'Canvas Cleared';
       redrawHandwritingCanvas();
     }
     window.clearHandwritingCanvas = clearHandwritingCanvas;
@@ -2840,8 +2933,8 @@
 
       const statusEl = document.getElementById('hw-ocr-status');
       const btn = document.getElementById('hw-convert-btn');
-      statusEl.textContent = "Tracing & reading handwriting...";
-      btn.disabled = true;
+      if (statusEl) statusEl.textContent = "Tracing & reading handwriting...";
+      if (btn) btn.disabled = true;
 
       try {
         if (!window.Tesseract) throw new Error("OCR still loading");
@@ -2851,25 +2944,25 @@
         const textBox = document.getElementById('hw-recognized-text');
 
         if (cleaned) {
-          textBox.value = cleaned;
-          statusEl.textContent = `Detected: "${cleaned}"`;
+          if (textBox) textBox.value = cleaned;
+          if (statusEl) statusEl.textContent = `Detected: "${cleaned}"`;
           if (!isAuto) showToast("Handwriting traced into text!", "#4CC38A", "#FFFFFF");
         } else {
-          statusEl.textContent = "Try writing slightly larger letters, or type/edit below";
+          if (statusEl) statusEl.textContent = "Try writing slightly larger letters, or type/edit below";
         }
         return cleaned;
       } catch (err) {
-        statusEl.textContent = "Could not auto-read — you can type directly below";
+        if (statusEl) statusEl.textContent = "Could not auto-read — you can type directly below";
         return "";
       } finally {
-        btn.disabled = false;
+        if (btn) btn.disabled = false;
       }
     }
     window.recognizeHandwritingToText = recognizeHandwritingToText;
 
     async function insertRecognizedTextToTarget() {
       const textBox = document.getElementById('hw-recognized-text');
-      let val = textBox.value.trim();
+      let val = textBox ? textBox.value.trim() : '';
 
       if (!val && hwStrokes.length > 0) {
         val = await recognizeHandwritingToText(false);
@@ -2920,8 +3013,12 @@
 
     function renderDenverItems() {
       const container = document.getElementById('denver-sectors-container');
-      const ageMonths = parseFloat(document.getElementById('denver-age-months').value) || 0;
-      const filterMode = document.getElementById('denver-filter-mode').value;
+      const ageInput = document.getElementById('denver-age-months');
+      const filterEl = document.getElementById('denver-filter-mode');
+      if (!container) return;
+
+      const ageMonths = ageInput ? (parseFloat(ageInput.value) || 0) : 36;
+      const filterMode = filterEl ? filterEl.value : 'age_line';
 
       const sectorColors = {
         "Personal-Social": "bg-[#FF6BB5] text-white",
@@ -2985,7 +3082,12 @@
     window.scoreDenverItem = scoreDenverItem;
 
     function updateDenverTally() {
-      const ageMonths = parseFloat(document.getElementById('denver-age-months').value) || 0;
+      const ageInput = document.getElementById('denver-age-months');
+      const tallyEl = document.getElementById('denver-tally');
+      const resBadge = document.getElementById('denver-result-badge');
+      if (!tallyEl || !resBadge) return;
+
+      const ageMonths = ageInput ? (parseFloat(ageInput.value) || 0) : 36;
       let pass = 0, caution = 0, delay = 0, refusal = 0;
 
       Object.values(DENVER_OFFICIAL_ITEMS).flat().forEach(item => {
@@ -2999,9 +3101,8 @@
         }
       });
 
-      document.getElementById('denver-tally').textContent = `Pass: ${pass} | Caution: ${caution} | Delay: ${delay} | Refusal: ${refusal}`;
+      tallyEl.textContent = `Pass: ${pass} | Caution: ${caution} | Delay: ${delay} | Refusal: ${refusal}`;
 
-      const resBadge = document.getElementById('denver-result-badge');
       if (delay >= 1 || caution >= 2) {
         resBadge.textContent = `SUSPECT (${delay} Delay${delay !== 1 ? 's' : ''}, ${caution} Caution${caution !== 1 ? 's' : ''})`;
         resBadge.style.color = '#DC2626';
@@ -3015,22 +3116,16 @@
     }
     window.updateDenverTally = updateDenverTally;
 
-    function hasDenverData() {
-      const hasScores = Object.values(state.denver).some(v => Boolean(v));
-      const hasNotes = Boolean(document.getElementById('denver-notes')?.value.trim());
-      return hasScores || hasNotes;
-    }
-
     function getDenverSummaryText() {
-      const ageMonths = parseFloat(document.getElementById('denver-age-months').value) || 0;
-      const tally = document.getElementById('denver-tally').textContent;
-      const interp = document.getElementById('denver-result-badge').textContent;
-      const behTypical = document.getElementById('denver-beh-typical').value;
-      const behComp = document.getElementById('denver-beh-compliance').value;
-      const behInt = document.getElementById('denver-beh-interest').value;
-      const behFear = document.getElementById('denver-beh-fear').value;
-      const behAtt = document.getElementById('denver-beh-attention').value;
-      const notes = document.getElementById('denver-notes').value.trim();
+      const ageMonths = parseFloat(document.getElementById('denver-age-months')?.value) || 0;
+      const tally = document.getElementById('denver-tally')?.textContent || '';
+      const interp = document.getElementById('denver-result-badge')?.textContent || '';
+      const behTypical = document.getElementById('denver-beh-typical')?.value || 'Yes';
+      const behComp = document.getElementById('denver-beh-compliance')?.value || 'Always Complies';
+      const behInt = document.getElementById('denver-beh-interest')?.value || 'Alert';
+      const behFear = document.getElementById('denver-beh-fear')?.value || 'None';
+      const behAtt = document.getElementById('denver-beh-attention')?.value || 'Appropriate';
+      const notes = document.getElementById('denver-notes')?.value.trim() || '';
 
       const flagged = [];
       Object.entries(DENVER_OFFICIAL_ITEMS).forEach(([sec, items]) => {
@@ -3043,7 +3138,7 @@
         });
       });
 
-      return `Denver II (Age Line ${ageMonths}m): ${interp} (${tally}).${flagged.length ? ' Flagged Items: ' + flagged.join('; ') + '.' : ''} Test Behavior: Typical=${behTypical}, Compliance=${behComp}, Interest=${behInt}, Fearfulness=${behFear}, Attention=${behAtt}.${notes ? ' Obs: ' + notes : ''}`;
+      return `Denver II (Age Line ${ageMonths}m): ${interp} (${tally}).${flagged.length ? ' Flagged Items: ' + flagged.join('; ') + '.' : ''} Test Behavior: Typical=${behTypical}, Compliance=${behComp}, Interest=${behInt}, Fearfulness=${behFear}, Attention=${behAtt}.${notes ? ' Observations: ' + notes : ''}`;
     }
 
     function sendDenverToSOAP() {
@@ -3063,16 +3158,18 @@
       const pBtn = document.getElementById('ssp-mode-patient-btn');
       const oBtn = document.getElementById('ssp-mode-ot-btn');
 
-      if (mode === 'patient') {
-        pView.classList.remove('hidden');
-        oView.classList.add('hidden');
-        pBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-[#FF9E44] text-white flex items-center gap-1.5';
-        oBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-white text-[#1E1B18] flex items-center gap-1.5';
-      } else {
-        pView.classList.add('hidden');
-        oView.classList.remove('hidden');
-        oBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-[#FF9E44] text-white flex items-center gap-1.5';
-        pBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-white text-[#1E1B18] flex items-center gap-1.5';
+      if (pView && oView && pBtn && oBtn) {
+        if (mode === 'patient') {
+          pView.classList.remove('hidden');
+          oView.classList.add('hidden');
+          pBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-[#FF9E44] text-white flex items-center gap-1.5';
+          oBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-white text-[#1E1B18] flex items-center gap-1.5';
+        } else {
+          pView.classList.add('hidden');
+          oView.classList.remove('hidden');
+          oBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-[#FF9E44] text-white flex items-center gap-1.5';
+          pBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-white text-[#1E1B18] flex items-center gap-1.5';
+        }
       }
       calculateSSPResults();
     }
@@ -3087,8 +3184,10 @@
 
     function renderSSP() {
       const container = document.getElementById('ssp-sections-list');
-      let qNum = 1;
+      const otGrid = document.getElementById('ssp-ot-inputs-grid');
+      if (!container || !otGrid) return;
 
+      let qNum = 1;
       container.innerHTML = SSP_SECTIONS.map(sec => {
         const itemsHtml = sec.items.map((itemObj, idx) => {
           const itemKey = `${sec.id}_${idx}`;
@@ -3124,7 +3223,6 @@
         `;
       }).join('');
 
-      const otGrid = document.getElementById('ssp-ot-inputs-grid');
       otGrid.innerHTML = SSP_SECTIONS.map(sec => `
         <div class="bg-white p-4 rounded-2xl border-3 border-[#1E1B18]">
           <label class="block font-bold text-sm mb-1">${sec.title}</label>
@@ -3180,24 +3278,23 @@
         }
       });
 
-      document.getElementById('ssp-total-score').textContent = `${grandTotal} / 190`;
+      const totalScoreEl = document.getElementById('ssp-total-score');
+      if (totalScoreEl) totalScoreEl.textContent = `${grandTotal} / 190`;
       const totalCls = getSSPClassification(grandTotal, 155, 142);
       const badge = document.getElementById('ssp-classification-badge');
-      badge.textContent = totalCls.label;
-      badge.style.color = totalCls.color;
-    }
-
-    function hasSSPData() {
-      const pHas = Object.values(state.sspAnswers).some(v => v > 0);
-      const oHas = Object.values(state.sspOtScores).some(v => v > 0);
-      return pHas || oHas;
+      if (badge) {
+        badge.textContent = totalCls.label;
+        badge.style.color = totalCls.color;
+      }
     }
 
     function getSSPSummaryText() {
-      const filledBy = document.getElementById('ssp-filled-by').value.trim();
-      const relEn = (document.getElementById('ssp-relationship').value || 'Caregiver').split(' / ')[0];
-      const totalText = document.getElementById('ssp-total-score').textContent;
-      const clsEn = (document.getElementById('ssp-classification-badge').textContent || '').split(' / ')[0];
+      const filledBy = document.getElementById('ssp-filled-by')?.value.trim() || 'Caregiver';
+      const relRaw = document.getElementById('ssp-relationship')?.value || 'Caregiver';
+      const rel = relRaw.split(' / ')[0];
+      const totalText = document.getElementById('ssp-total-score')?.textContent || '0 / 190';
+      const clsRaw = document.getElementById('ssp-classification-badge')?.textContent || '';
+      const clsText = clsRaw.split(' / ')[0];
 
       const secSummaries = SSP_SECTIONS.map(sec => {
         let sum = 0;
@@ -3206,13 +3303,11 @@
         } else {
           sum = state.sspOtScores[sec.id] || 0;
         }
-        if (sum === 0) return null;
         const c = getSSPClassification(sum, sec.typicalMin, sec.probMin).label.split(' / ')[0];
         return `${sec.title.split(' / ')[0]}: ${sum}/${sec.max} (${c})`;
-      }).filter(Boolean).join('; ');
+      }).join('; ');
 
-      const completedTag = filledBy ? ` [Completed by: ${filledBy} (${relEn})]` : '';
-      return `Short Sensory Profile (SSP)${completedTag}: Total ${totalText} — ${clsEn}.${secSummaries ? ' Breakdown: ' + secSummaries + '.' : ''}`;
+      return `Short Sensory Profile (SSP) [Completed by: ${filledBy} (${rel})]: Total ${totalText} — ${clsText}. Breakdown: ${secSummaries}.`;
     }
 
     function sendSSPToSOAP() {
@@ -3232,16 +3327,18 @@
       const pBtn = document.getElementById('sp2-mode-patient-btn');
       const oBtn = document.getElementById('sp2-mode-ot-btn');
 
-      if (mode === 'patient') {
-        pView.classList.remove('hidden');
-        oView.classList.add('hidden');
-        pBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-[#56CFE1] text-[#1E1B18] flex items-center gap-1.5';
-        oBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-white text-[#1E1B18] flex items-center gap-1.5';
-      } else {
-        pView.classList.add('hidden');
-        oView.classList.remove('hidden');
-        oBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-[#56CFE1] text-[#1E1B18] flex items-center gap-1.5';
-        pBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-white text-[#1E1B18] flex items-center gap-1.5';
+      if (pView && oView && pBtn && oBtn) {
+        if (mode === 'patient') {
+          pView.classList.remove('hidden');
+          oView.classList.add('hidden');
+          pBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-[#56CFE1] text-[#1E1B18] flex items-center gap-1.5';
+          oBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-white text-[#1E1B18] flex items-center gap-1.5';
+        } else {
+          pView.classList.add('hidden');
+          oView.classList.remove('hidden');
+          oBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-[#56CFE1] text-[#1E1B18] flex items-center gap-1.5';
+          pBtn.className = 'px-3.5 py-2 text-xs sm:text-sm font-bold bg-white text-[#1E1B18] flex items-center gap-1.5';
+        }
       }
       calculateSP2Results();
     }
@@ -3266,10 +3363,16 @@
     }
 
     function renderSP2() {
-      const formKey = document.getElementById('sp2-age-form').value;
-      const formObj = SP2_FORMS[formKey];
-
+      const formEl = document.getElementById('sp2-age-form');
       const quadContainer = document.getElementById('sp2-quadrant-summary');
+      const pillsContainer = document.getElementById('sp2-section-pills');
+      const itemsContainer = document.getElementById('sp2-items-container');
+      const otGrid = document.getElementById('sp2-ot-inputs-grid');
+      const otSecGrid = document.getElementById('sp2-ot-sections-grid');
+      if (!formEl || !quadContainer || !pillsContainer || !itemsContainer || !otGrid || !otSecGrid) return;
+
+      const formKey = formEl.value;
+      const formObj = SP2_FORMS[formKey];
       const quadColors = ['bg-[#FFF5FA]', 'bg-[#E6FAFD]', 'bg-[#FFFDF0]', 'bg-[#F2FFF8]'];
 
       if (formObj.isInfantTotalOnly) {
@@ -3297,7 +3400,6 @@
         `).join('');
       }
 
-      const pillsContainer = document.getElementById('sp2-section-pills');
       pillsContainer.innerHTML = formObj.sections.map(sec => `
         <div class="bg-white p-2 rounded-xl border-2 border-[#1E1B18]">
           <div class="font-bold truncate">${sec.title.split(' / ')[0]}</div>
@@ -3305,7 +3407,6 @@
         </div>
       `).join('');
 
-      const itemsContainer = document.getElementById('sp2-items-container');
       itemsContainer.innerHTML = formObj.sections.map(sec => {
         const secItems = formObj.items.filter(it => it.sec === sec.id);
         return `
@@ -3345,11 +3446,13 @@
         `;
       }).join('');
 
-      document.getElementById('sp2-ot-quad-heading').textContent = formObj.isInfantTotalOnly
-        ? "Infant Total Score / Jumlah Skor Bayi"
-        : "Quadrant Raw Scores / Skor Kuadran (Pearson Summary Sheet)";
+      const quadHeadingEl = document.getElementById('sp2-ot-quad-heading');
+      if (quadHeadingEl) {
+        quadHeadingEl.textContent = formObj.isInfantTotalOnly
+          ? "Infant Total Score / Jumlah Skor Bayi"
+          : "Quadrant Raw Scores / Skor Kuadran (Pearson Summary Sheet)";
+      }
 
-      const otGrid = document.getElementById('sp2-ot-inputs-grid');
       otGrid.innerHTML = formObj.quadrants.map(q => {
         const stateKey = `${formKey}_${q.key}`;
         const [c0, c1, c2, c3] = q.cutoffs;
@@ -3368,7 +3471,6 @@
         `;
       }).join('');
 
-      const otSecGrid = document.getElementById('sp2-ot-sections-grid');
       otSecGrid.innerHTML = formObj.sections.map(sec => {
         const secStateKey = `${formKey}_sec_${sec.id}`;
         return `
@@ -3407,7 +3509,9 @@
     window.updateSP2OtSectionScore = updateSP2OtSectionScore;
 
     function calculateSP2Results() {
-      const formKey = document.getElementById('sp2-age-form').value;
+      const formEl = document.getElementById('sp2-age-form');
+      if (!formEl) return;
+      const formKey = formEl.value;
       const formObj = SP2_FORMS[formKey];
 
       const quadTotals = { SK: 0, AV: 0, SN: 0, RG: 0, TOTAL: 0 };
@@ -3490,35 +3594,27 @@
       });
     }
 
-    function hasSP2Data() {
-      const pHas = Object.values(state.sp2Answers).some(v => v !== undefined && v !== null);
-      const qHas = Object.values(state.sp2OtScores).some(v => v !== undefined && v !== null);
-      const sHas = Object.values(state.sp2OtSectionScores).some(v => v !== undefined && v !== null);
-      return pHas || qHas || sHas;
-    }
-
     function getSP2SummaryText() {
-      const formKey = document.getElementById('sp2-age-form').value;
+      const formKey = document.getElementById('sp2-age-form')?.value || 'child';
       const formObj = SP2_FORMS[formKey];
-      const filledBy = document.getElementById('sp2-filled-by').value.trim();
-      const relEn = (document.getElementById('sp2-relationship').value || 'Caregiver').split(' / ')[0];
+      const filledBy = document.getElementById('sp2-filled-by')?.value.trim() || 'Caregiver';
+      const relRaw = document.getElementById('sp2-relationship')?.value || 'Caregiver';
+      const rel = relRaw.split(' / ')[0];
 
       const quadSummary = formObj.quadrants.map(q => {
-        const rawCls = document.getElementById(`sp2-quad-cls-${q.key}`)?.textContent || 'Not Scored';
-        if (rawCls.startsWith('Not Scored')) return null;
         const val = document.getElementById(`sp2-quad-val-${q.key}`)?.textContent || `0/${q.max}`;
-        const clsEn = rawCls.split(' / ')[0];
-        return `${q.title.split(' / ')[0]}: ${val} [${clsEn}]`;
-      }).filter(Boolean).join('; ');
+        const clsRaw = document.getElementById(`sp2-quad-cls-${q.key}`)?.textContent || 'Not Scored';
+        const cls = clsRaw.split(' / ')[0];
+        const qTitle = q.title.split(' / ')[0];
+        return `${qTitle}: ${val} [${cls}]`;
+      }).join('; ');
 
       const secSummary = formObj.sections.map(sec => {
         const pill = document.getElementById(`sp2-sec-pill-${sec.id}`)?.textContent || `0/${sec.max}`;
-        if (pill.startsWith(`0 / ${sec.max}`)) return null;
         return `${sec.title.split(' / ')[0]}: ${pill}`;
-      }).filter(Boolean).join(', ');
+      }).join(', ');
 
-      const completedTag = filledBy ? ` [Completed by: ${filledBy} (${relEn})]` : '';
-      return `${formObj.label}${completedTag}:${quadSummary ? ' ' + quadSummary + '.' : ''}${secSummary ? ' Sections: ' + secSummary + '.' : ''}`;
+      return `${formObj.label} [Completed by: ${filledBy} (${rel})]: ${quadSummary}. Sections: ${secSummary}.`;
     }
 
     function sendSP2ToSOAP() {
@@ -3531,13 +3627,6 @@
     /* ========================================================================
        10. SHORE HANDWRITING SCREENING (SHS) — OT SCORING & INTERPRETATION
        ======================================================================== */
-    function hasShoreData() {
-      const textIds = ['shore-school', 'shore-speed', 'shore-1a', 'shore-1b', 'shore-2b', 'shore-2c', 'shore-2d1', 'shore-2d2', 'shore-4a', 'shore-4b', 'shore-4c', 'shore-5a', 'shore-5b', 'shore-5c', 'shore-notes'];
-      const hasInput = textIds.some(id => Boolean(document.getElementById(id)?.value.trim()));
-      const hasChecks = document.querySelectorAll('.shore-posture-issue:checked, .shore-shape:checked, .shore-rec-area:checked, #shore-rec-none:checked').length > 0;
-      return hasInput || hasChecks;
-    }
-
     function updateShoreInterpretation() {
       const version = document.getElementById('shore-version')?.value || '';
       const school = document.getElementById('shore-school')?.value.trim() || '';
@@ -3568,37 +3657,33 @@
       let parts = [`Shore Handwriting Screening (${version}${school ? ', ' + school : ''}):`];
 
       if (p1a || p1b || pIssues.length) {
-        const postureSub = [];
-        if (p1a) postureSub.push(`Desk height appropriate=${p1a}`);
-        if (p1b) postureSub.push(`Feet on floor=${p1b}`);
-        if (pIssues.length) postureSub.push(`Issues: ${pIssues.join(', ')}`);
-        parts.push(`Postural Control: ${postureSub.join(', ')}.`);
+        parts.push(`Postural Control:${p1a ? ` Desk height appropriate=${p1a},` : ''}${p1b ? ` Feet on floor=${p1b}` : ''}${pIssues.length ? `; Issues: ${pIssues.join(', ')}` : '; Good seated posture'}.`);
       }
       if (domHand || grasp || rot1 || rot2) {
-        const handSub = [];
-        if (domHand) handSub.push(`Dominant=${domHand}`);
-        if (grasp) handSub.push(`Grasp=${grasp}`);
-        if (rot1) handSub.push(`In-hand rotation without drop=${rot1}`);
-        if (rot2) handSub.push(`Without assist=${rot2}`);
-        parts.push(`Hand Control: ${handSub.join(', ')}.`);
+        const hcItems = [];
+        if (domHand) hcItems.push(`Dominant=${domHand}`);
+        if (grasp) hcItems.push(`Grasp=${grasp}`);
+        if (rot1) hcItems.push(`In-hand rotation without drop=${rot1}`);
+        if (rot2) hcItems.push(`Without assist=${rot2}`);
+        parts.push(`Hand Control: ${hcItems.join(', ')}.`);
       }
       if (shapes.length) {
         parts.push(`Pre-Writing Shapes Mastered (${shapes.length}/8): ${shapes.join(', ')}.`);
       }
       if (f4a || f4b || f4c || speed) {
-        const formSub = [];
-        if (f4a) formSub.push(`Draw person/numbers=${f4a}`);
-        if (f4b) formSub.push(`Far-point date=${f4b}`);
-        if (f4c) formSub.push(`Word/sentence=${f4c}`);
-        if (speed) formSub.push(`Speed=${speed} letters/min`);
-        parts.push(`Formation & Legibility: ${formSub.join(', ')}.`);
+        const flItems = [];
+        if (f4a) flItems.push(`Draw person/numbers=${f4a}`);
+        if (f4b) flItems.push(`Far-point date=${f4b}`);
+        if (f4c) flItems.push(`Word/sentence=${f4c}`);
+        if (speed) flItems.push(`Speed=${speed} letters/min`);
+        parts.push(`Formation & Legibility: ${flItems.join(', ')}.`);
       }
       if (b5a || b5b || b5c) {
-        const biSub = [];
-        if (b5a) biSub.push(`Coloring within 1/4"=${b5a}`);
-        if (b5b) biSub.push(`Helper hand on paper=${b5b}`);
-        if (b5c) biSub.push(`Cutting within 1/4"=${b5c}`);
-        parts.push(`Bilateral Hand Skills: ${biSub.join(', ')}.`);
+        const bhItems = [];
+        if (b5a) bhItems.push(`Coloring within 1/4"=${b5a}`);
+        if (b5b) bhItems.push(`Helper hand on paper=${b5b}`);
+        if (b5c) bhItems.push(`Cutting within 1/4"=${b5c}`);
+        parts.push(`Bilateral Hand Skills: ${bhItems.join(', ')}.`);
       }
       if (recNone) {
         parts.push(`Recommendation: Further OT handwriting testing NOT indicated.`);
@@ -3609,11 +3694,7 @@
 
       const summary = parts.join(' ');
       const displayEl = document.getElementById('shore-live-interpretation');
-      if (displayEl) {
-        displayEl.textContent = hasShoreData()
-          ? summary
-          : "Complete the Shore screening sections below to generate your clinical interpretation summary.";
-      }
+      if (displayEl) displayEl.textContent = summary;
       return summary;
     }
     window.updateShoreInterpretation = updateShoreInterpretation;
@@ -3627,12 +3708,13 @@
     window.sendShoreToSOAP = sendShoreToSOAP;
 
     /* ========================================================================
-       11. SOAP NOTES COMPILER (PURE [S][O][A][P] ONLY — NO WRAPPER HEADERS/FOOTERS)
+       11. SOAP NOTES COMPILER (ONLY ENTERED ITEMS, PURE SOAP OUTPUT), PDF & DRIVE
        ======================================================================== */
     function appendText(elementId, textToAppend) {
       const el = document.getElementById(elementId);
       if (!el) return;
       el.value = (el.value ? el.value.trim() + '\n' : '') + textToAppend;
+      state.isCompiledSOAPManuallyEdited = false;
       updateLiveCompiledSOAPPreview();
     }
     window.appendText = appendText;
@@ -3641,8 +3723,7 @@
       const cameWith = document.getElementById('soap-came-with')?.value.trim()
         || document.getElementById('pt-informant')?.value.trim()
         || '';
-      const enteredWith = document.getElementById('soap-entered-room-with')?.value.trim()
-        || '';
+      const enteredWith = document.getElementById('soap-entered-room-with')?.value.trim() || '';
 
       const parts = [];
       if (cameWith) parts.push(`Came with: ${cameWith}`);
@@ -3650,167 +3731,157 @@
       return parts.length > 0 ? parts.join(' | ') + '.' : '';
     }
 
-    function handleDirectCompiledSOAPEdit() {
+    function handleCompiledSOAPManualEdit() {
       state.isCompiledSOAPManuallyEdited = true;
     }
-    window.handleDirectCompiledSOAPEdit = handleDirectCompiledSOAPEdit;
+    window.handleCompiledSOAPManualEdit = handleCompiledSOAPManualEdit;
 
-    function refreshCompiledSOAPFromForm() {
+    function resyncCompiledSOAPFromFields() {
       state.isCompiledSOAPManuallyEdited = false;
-      updateLiveCompiledSOAPPreview();
-      showToast("Compiled SOAP Note synced from form fields!", "#56CFE1", "#1E1B18");
+      updateLiveCompiledSOAPPreview(true);
+      showToast("SOAP Note refreshed from fields above!", "#56CFE1", "#1E1B18");
     }
-    window.refreshCompiledSOAPFromForm = refreshCompiledSOAPFromForm;
+    window.resyncCompiledSOAPFromFields = resyncCompiledSOAPFromFields;
 
-    function updateLiveCompiledSOAPPreview() {
+    async function saveCompiledNoteDirectly() {
+      await window.saveCurrentRecordToCloud();
+    }
+    window.saveCompiledNoteDirectly = saveCompiledNoteDirectly;
+
+    function updateLiveCompiledSOAPPreview(forceOverwrite = false) {
       const previewEl = document.getElementById('live-soap-compiled-preview');
       if (!previewEl) return;
-      if (!state.isCompiledSOAPManuallyEdited) {
-        previewEl.value = buildCompleteSOAPDocumentText();
-      }
+      if (state.isCompiledSOAPManuallyEdited && !forceOverwrite) return;
+      previewEl.value = buildCompleteSOAPDocumentText();
     }
     window.updateLiveCompiledSOAPPreview = updateLiveCompiledSOAPPreview;
 
-    function getFinalCompiledSOAPText() {
+    function getCompiledSOAPTextForExport() {
       const previewEl = document.getElementById('live-soap-compiled-preview');
       if (previewEl && previewEl.value.trim()) {
-        return previewEl.value;
+        return previewEl.value.trim();
       }
       return buildCompleteSOAPDocumentText();
     }
 
     function formatRatedItemsOnly(items) {
       return items
-        .filter(it => Boolean(state.domainRatings[it.key]))
+        .filter(it => !!state.domainRatings[it.key])
         .map(it => `${it.label}: ${state.domainRatings[it.key]}`)
         .join(' | ');
     }
 
     function getStructuredDomainsFormattedText() {
-      const domainBlocks = [];
+      const domainLines = [];
 
-      // 1. Fine Motor (only include sub-lines that were actually rated/ticked/typed)
+      // 1. Fine Motor (Only rated manipulation & ticked pencil grasp patterns)
       const manipSummary = formatRatedItemsOnly(FINE_MOTOR_MANIPULATION_ITEMS);
       const tickedGrasps = TYPICAL_PENCIL_GRASP_ITEMS
         .filter(g => state.selectedGrasps[g.key])
         .map(g => `${g.label} (${g.age})`);
-      const fmExtra = document.getElementById('obs-finemotor')?.value.trim();
+      const fmExtra = document.getElementById('obs-finemotor')?.value.trim() || '';
 
-      const fmSubLines = [];
-      if (manipSummary) fmSubLines.push(`  * Manipulation: ${manipSummary}`);
-      if (tickedGrasps.length > 0) fmSubLines.push(`  * Pencil Grasp Pattern: ${tickedGrasps.join(', ')}`);
-      if (fmExtra) fmSubLines.push(`  * Notes: ${fmExtra}`);
-      if (fmSubLines.length > 0) {
-        domainBlocks.push({ title: "Fine Motor", lines: fmSubLines });
+      if (manipSummary || tickedGrasps.length > 0 || fmExtra) {
+        const fmSub = [];
+        if (manipSummary) fmSub.push(`  * Manipulation: ${manipSummary}`);
+        if (tickedGrasps.length > 0) fmSub.push(`  * Pencil Grasp Pattern: ${tickedGrasps.join(', ')}`);
+        if (fmExtra) fmSub.push(`  * Notes: ${fmExtra}`);
+        domainLines.push(`- Fine Motor:\n${fmSub.join('\n')}`);
       }
 
-      // 2. Basic Concept
+      // 2. Basic Concept (Only assessed items)
       const bcSummary = formatRatedItemsOnly(BASIC_CONCEPT_ITEMS);
-      const bcExtra = document.getElementById('obs-concept')?.value.trim();
-      const bcSubLines = [];
-      if (bcSummary) bcSubLines.push(`  * ${bcSummary}`);
-      if (bcExtra) bcSubLines.push(`  * Notes: ${bcExtra}`);
-      if (bcSubLines.length > 0) {
-        domainBlocks.push({ title: "Basic Concept", lines: bcSubLines });
+      const bcExtra = document.getElementById('obs-concept')?.value.trim() || '';
+      if (bcSummary || bcExtra) {
+        const bcSub = [];
+        if (bcSummary) bcSub.push(`  * ${bcSummary}`);
+        if (bcExtra) bcSub.push(`  * Notes: ${bcExtra}`);
+        domainLines.push(`- Basic Concept:\n${bcSub.join('\n')}`);
       }
 
-      // 3. Cognitive Function
+      // 3. Cognitive Function (Only rated items)
       const cogSummary = formatRatedItemsOnly(COGNITIVE_ITEMS);
-      const cogExtra = document.getElementById('obs-cognitive')?.value.trim();
-      const cogSubLines = [];
-      if (cogSummary) cogSubLines.push(`  * ${cogSummary}`);
-      if (cogExtra) cogSubLines.push(`  * Notes: ${cogExtra}`);
-      if (cogSubLines.length > 0) {
-        domainBlocks.push({ title: "Cognitive Function", lines: cogSubLines });
+      const cogExtra = document.getElementById('obs-cognitive')?.value.trim() || '';
+      if (cogSummary || cogExtra) {
+        const cogSub = [];
+        if (cogSummary) cogSub.push(`  * ${cogSummary}`);
+        if (cogExtra) cogSub.push(`  * Notes: ${cogExtra}`);
+        domainLines.push(`- Cognitive Function:\n${cogSub.join('\n')}`);
       }
 
-      // 4. Behavior
-      const behText = document.getElementById('obs-behavior')?.value.trim();
-      if (behText) {
-        domainBlocks.push({ title: "Behavior", inlineText: behText });
-      }
+      // 4. Behavior, 5. Emotional Regulation, 6. Sensory Function (Only if typed)
+      const behText = document.getElementById('obs-behavior')?.value.trim() || '';
+      if (behText) domainLines.push(`- Behavior: ${behText}`);
 
-      // 5. Emotional Regulation
-      const emoText = document.getElementById('obs-emotion')?.value.trim();
-      if (emoText) {
-        domainBlocks.push({ title: "Emotional Regulation", inlineText: emoText });
-      }
+      const emoText = document.getElementById('obs-emotion')?.value.trim() || '';
+      if (emoText) domainLines.push(`- Emotional Regulation: ${emoText}`);
 
-      // 6. Sensory Function
-      const senText = document.getElementById('obs-sensory')?.value.trim();
-      if (senText) {
-        domainBlocks.push({ title: "Sensory Function", inlineText: senText });
-      }
+      const senText = document.getElementById('obs-sensory')?.value.trim() || '';
+      if (senText) domainLines.push(`- Sensory Function: ${senText}`);
 
-      if (domainBlocks.length === 0) return '';
-
-      return domainBlocks.map((block, idx) => {
-        const num = idx + 1;
-        if (block.inlineText) {
-          return `- ${num}. ${block.title}: ${block.inlineText}`;
-        }
-        return `- ${num}. ${block.title}:\n${block.lines.join('\n')}`;
-      }).join('\n');
+      return domainLines.join('\n');
     }
 
     function syncAllAssessmentsToSOAP() {
-      const summaries = [];
-      if (hasDenverData()) summaries.push(getDenverSummaryText());
-      if (hasSSPData()) summaries.push(getSSPSummaryText());
-      if (hasSP2Data()) summaries.push(getSP2SummaryText());
-      if (hasShoreData()) summaries.push(updateShoreInterpretation());
+      const summaries = [
+        getDenverSummaryText(),
+        getSSPSummaryText(),
+        getSP2SummaryText(),
+        updateShoreInterpretation()
+      ].join('\n');
 
-      if (summaries.length === 0) {
-        showToast("No assessment scores entered yet!", "#FF9E44", "#FFFFFF");
-        return;
-      }
-
-      appendText('soap-o', "--- STANDARDIZED OT ASSESSMENT RESULTS ---\n" + summaries.join('\n'));
-      triggerMascotCheer("Completed assessment results synced into SOAP Objective!");
-      showToast("Assessment scores synced into SOAP Objective!", "#4CC38A", "#FFFFFF");
+      appendText('soap-o', summaries);
+      triggerMascotCheer("All assessment results synced into SOAP Objective!");
+      showToast("All assessment scores synced into SOAP Objective!", "#4CC38A", "#FFFFFF");
     }
     window.syncAllAssessmentsToSOAP = syncAllAssessmentsToSOAP;
 
     function buildCompleteSOAPDocumentText() {
-      const soapSections = [];
+      const sections = [];
 
-      // [S] SUBJECTIVE
+      // [S] SUBJECTIVE (Only if filled)
       const attendanceLine = getSubjectiveAttendanceLine();
       const rawSubjective = document.getElementById('soap-s')?.value.trim() || '';
-      const fullSubjective = [attendanceLine, rawSubjective].filter(Boolean).join('\n');
-      if (fullSubjective) {
-        soapSections.push(`[S] SUBJECTIVE:\n${fullSubjective}`);
+      const subjParts = [attendanceLine, rawSubjective].filter(Boolean);
+      if (subjParts.length > 0) {
+        sections.push(`[S] SUBJECTIVE:\n${subjParts.join('\n')}`);
       }
 
-      // [O] OBJECTIVE
+      // [O] OBJECTIVE (Only if domains or standardized scores are filled)
       const domainObs = getStructuredDomainsFormattedText();
       const objStd = document.getElementById('soap-o')?.value.trim() || '';
       const objParts = [];
-      if (domainObs) objParts.push(`Clinical Functional Observation Domains:\n${domainObs}`);
-      if (objStd) objParts.push(`Assessment Findings:\n${objStd}`);
+      if (domainObs) objParts.push(domainObs);
+      if (objStd) objParts.push(objStd);
       if (objParts.length > 0) {
-        soapSections.push(`[O] OBJECTIVE:\n${objParts.join('\n\n')}`);
+        sections.push(`[O] OBJECTIVE:\n${objParts.join('\n\n')}`);
       }
 
-      // [A] ASSESSMENT
+      // [A] ASSESSMENT (Only if filled)
       const assessmentText = document.getElementById('soap-a')?.value.trim() || '';
       if (assessmentText) {
-        soapSections.push(`[A] ASSESSMENT:\n${assessmentText}`);
+        sections.push(`[A] ASSESSMENT:\n${assessmentText}`);
       }
 
-      // [P] PLAN
+      // [P] PLAN (Short Term Goals, Long Term Goals & Interventions — Only if filled)
+      const stgText = document.getElementById('soap-stg')?.value.trim() || '';
+      const ltgText = document.getElementById('soap-ltg')?.value.trim() || '';
       const planText = document.getElementById('soap-p')?.value.trim() || '';
-      if (planText) {
-        soapSections.push(`[P] PLAN:\n${planText}`);
+      const planParts = [];
+      if (stgText) planParts.push(`Short Term Goals (STGs):\n${stgText}`);
+      if (ltgText) planParts.push(`Long Term Goals (LTGs):\n${ltgText}`);
+      if (planText) planParts.push(planText);
+      if (planParts.length > 0) {
+        sections.push(`[P] PLAN:\n${planParts.join('\n\n')}`);
       }
 
-      return soapSections.join('\n\n');
+      return sections.join('\n\n');
     }
 
     function copyCompleteSOAPNote() {
-      const fullSOAP = getFinalCompiledSOAPText();
-      if (!fullSOAP.trim()) {
-        showToast("Nothing to copy yet — fill in your SOAP note first!", "#FF9E44", "#FFFFFF");
+      const fullSOAP = getCompiledSOAPTextForExport();
+      if (!fullSOAP) {
+        showToast("Nothing typed yet to copy!", "#FF9E44", "#FFFFFF");
         return;
       }
       const tempArea = document.createElement('textarea');
@@ -3819,8 +3890,8 @@
       tempArea.select();
       try {
         document.execCommand('copy');
-        triggerMascotCheer("Complete SOAP Note copied to clipboard!");
-        showToast("Complete SOAP Note copied to clipboard!", "#4CC38A", "#FFFFFF");
+        triggerMascotCheer("SOAP Note copied to clipboard!");
+        showToast("SOAP Note copied to clipboard!", "#4CC38A", "#FFFFFF");
       } catch (err) {
         showToast("Could not copy automatically — please select text manually.", "#FF9E44", "#FFFFFF");
       }
@@ -3828,33 +3899,20 @@
     }
     window.copyCompleteSOAPNote = copyCompleteSOAPNote;
 
-    function buildPDFPatientHeaderLines() {
-      const lines = [];
-      if (state.patient.name) lines.push(`Patient Name : ${state.patient.name}`);
-      if (state.patient.mykid) lines.push(`MyKid / IC   : ${state.patient.mykid}`);
-      if (state.patient.dob && state.patient.ageText) {
-        lines.push(`DOB & Age    : ${state.patient.dob} (${state.patient.ageText})`);
-      } else if (state.patient.dob) {
-        lines.push(`DOB          : ${state.patient.dob}`);
-      } else if (state.patient.ageText) {
-        lines.push(`Age          : ${state.patient.ageText}`);
-      }
-      if (state.patient.gender) lines.push(`Gender       : ${state.patient.gender}`);
-      if (state.patient.rn) lines.push(`RN Number    : ${state.patient.rn}`);
-      if (state.patient.diagnosis) lines.push(`Diagnosis    : ${state.patient.diagnosis}`);
-      return lines;
-    }
-
     function exportReportAsPDF() {
       syncPatientState();
-      const pureSOAP = getFinalCompiledSOAPText();
-      const ptLines = buildPDFPatientHeaderLines();
-      const pdfBody = [
-        ptLines.length > 0 ? ptLines.join('\n') + '\n----------------------------------------------------' : '',
-        pureSOAP
-      ].filter(Boolean).join('\n\n');
-
+      const soapBody = getCompiledSOAPTextForExport();
       const fileNameSafe = (state.patient.name || 'Patient_OT_SOAP').replace(/[^a-zA-Z0-9_-]/g, '_');
+
+      const ptLines = [];
+      if (state.patient.name) ptLines.push(`Patient Name : ${state.patient.name}`);
+      if (state.patient.mykid) ptLines.push(`MyKid / IC   : ${state.patient.mykid}`);
+      if (state.patient.dob || state.patient.ageText) ptLines.push(`DOB & Age    : ${state.patient.dob}${state.patient.ageText ? ` (${state.patient.ageText})` : ''}`);
+      if (state.patient.gender) ptLines.push(`Gender       : ${state.patient.gender}`);
+      if (state.patient.rn) ptLines.push(`RN Number    : ${state.patient.rn}`);
+      if (state.patient.diagnosis) ptLines.push(`Diagnosis    : ${state.patient.diagnosis}`);
+
+      const pdfContent = [ptLines.join('\n'), soapBody].filter(Boolean).join('\n\n');
 
       if (window.jspdf && window.jspdf.jsPDF) {
         try {
@@ -3879,20 +3937,20 @@
 
           doc.setFont("helvetica", "normal");
           doc.setFontSize(9.5);
-          doc.text(`Attending Occupational Therapist: ${state.patient.therapist || 'OT Ezlyana'}   |   Session Date: ${state.patient.sessionDate || 'N/A'}`, margin + 4, 23);
+          doc.text(`Attending Occupational Therapist: ${state.patient.therapist || 'OT Ezlyana'}   |   Session Date: ${state.patient.sessionDate || ''}`, margin + 4, 23);
 
           y = 33;
           doc.setFont("courier", "normal");
-          doc.setFontSize(9.2);
+          doc.setFontSize(9.5);
 
-          const lines = doc.splitTextToSize(pdfBody, maxLineWidth);
+          const lines = doc.splitTextToSize(pdfContent || 'No clinical notes entered.', maxLineWidth);
           for (let i = 0; i < lines.length; i++) {
             if (y > pageHeight - 18) {
               doc.addPage();
               y = 18;
             }
             doc.text(lines[i], margin, y);
-            y += 4.8;
+            y += 5;
           }
 
           doc.save(`${fileNameSafe}_OT_SOAP.pdf`);
@@ -3905,20 +3963,22 @@
       }
 
       const printSheet = document.getElementById('print-report-sheet');
-      printSheet.innerHTML = `<pre style="font-family: monospace; white-space: pre-wrap; font-size: 12px;">${pdfBody.replace(/</g, '&lt;')}</pre>`;
+      if (printSheet) {
+        printSheet.innerHTML = `<pre style="font-family: monospace; white-space: pre-wrap; font-size: 12px;">${(pdfContent || 'No clinical notes entered.').replace(/</g, '&lt;')}</pre>`;
+      }
       window.print();
     }
     window.exportReportAsPDF = exportReportAsPDF;
 
     function saveToGoogleDrive() {
       syncPatientState();
-      const pureSOAP = getFinalCompiledSOAPText();
+      const fullSOAP = getCompiledSOAPTextForExport();
       const fileNameSafe = (state.patient.name || 'Patient_OT_SOAP').replace(/[^a-zA-Z0-9_-]/g, '_');
 
       const docHtml = `
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'>
         <head><meta charset='utf-8'><title>OT SOAP Report</title></head>
-        <body style="font-family: Arial, sans-serif; line-height: 1.5; white-space: pre-wrap;">${pureSOAP.replace(/</g, '&lt;')}</body>
+        <body style="font-family: Arial, sans-serif; line-height: 1.5; white-space: pre-wrap;">${fullSOAP.replace(/</g, '&lt;')}</body>
         </html>`;
       const blob = new Blob([docHtml], { type: 'application/msword' });
       const url = URL.createObjectURL(blob);
@@ -3972,30 +4032,32 @@
         patient: { ...state.patient },
         domainRatings: JSON.stringify(state.domainRatings),
         selectedGrasps: JSON.stringify(state.selectedGrasps),
-        compiledSoapText: getFinalCompiledSOAPText(),
-        isCompiledSOAPManuallyEdited: !!state.isCompiledSOAPManuallyEdited,
+        compiledSOAPText: getCompiledSOAPTextForExport(),
+        isCompiledSOAPManuallyEdited: state.isCompiledSOAPManuallyEdited,
         soap: {
-          cameWith: document.getElementById('soap-came-with').value,
-          enteredRoomWith: document.getElementById('soap-entered-room-with').value,
-          s: document.getElementById('soap-s').value,
-          o: document.getElementById('soap-o').value,
-          a: document.getElementById('soap-a').value,
-          p: document.getElementById('soap-p').value,
-          behavior: document.getElementById('obs-behavior').value,
-          emotion: document.getElementById('obs-emotion').value,
-          concept: document.getElementById('obs-concept').value,
-          cognitive: document.getElementById('obs-cognitive').value,
-          finemotor: document.getElementById('obs-finemotor').value,
-          sensory: document.getElementById('obs-sensory').value
+          cameWith: document.getElementById('soap-came-with')?.value || '',
+          enteredRoomWith: document.getElementById('soap-entered-room-with')?.value || '',
+          s: document.getElementById('soap-s')?.value || '',
+          o: document.getElementById('soap-o')?.value || '',
+          a: document.getElementById('soap-a')?.value || '',
+          stg: document.getElementById('soap-stg')?.value || '',
+          ltg: document.getElementById('soap-ltg')?.value || '',
+          p: document.getElementById('soap-p')?.value || '',
+          behavior: document.getElementById('obs-behavior')?.value || '',
+          emotion: document.getElementById('obs-emotion')?.value || '',
+          concept: document.getElementById('obs-concept')?.value || '',
+          cognitive: document.getElementById('obs-cognitive')?.value || '',
+          finemotor: document.getElementById('obs-finemotor')?.value || '',
+          sensory: document.getElementById('obs-sensory')?.value || ''
         },
         denver: JSON.stringify(state.denver),
-        denverAgeMonths: document.getElementById('denver-age-months').value,
-        denverNotes: document.getElementById('denver-notes').value,
-        sspFilledBy: document.getElementById('ssp-filled-by').value,
+        denverAgeMonths: document.getElementById('denver-age-months')?.value || 36,
+        denverNotes: document.getElementById('denver-notes')?.value || '',
+        sspFilledBy: document.getElementById('ssp-filled-by')?.value || '',
         sspAnswers: JSON.stringify(state.sspAnswers),
         sspOtScores: JSON.stringify(state.sspOtScores),
-        sp2AgeForm: document.getElementById('sp2-age-form').value,
-        sp2FilledBy: document.getElementById('sp2-filled-by').value,
+        sp2AgeForm: document.getElementById('sp2-age-form')?.value || 'child',
+        sp2FilledBy: document.getElementById('sp2-filled-by')?.value || '',
         sp2Answers: JSON.stringify(state.sp2Answers),
         sp2OtScores: JSON.stringify(state.sp2OtScores),
         sp2OtSectionScores: JSON.stringify(state.sp2OtSectionScores),
@@ -4017,14 +4079,15 @@
       }
 
       persistLocalRecordsFallback();
-      document.getElementById('saved-count-badge').textContent = window.cloudRecords.length;
+      const badge = document.getElementById('saved-count-badge');
+      if (badge) badge.textContent = window.cloudRecords.length;
       window.renderSavedRecordsList();
 
       if (window.firestoreSaveRecord) {
         await window.firestoreSaveRecord(recordId, payload);
       } else {
-        triggerMascotCheer("SOAP note & patient record saved!");
-        showToast("Note saved into Saved Records!", "#4CC38A", "#FFFFFF");
+        triggerMascotCheer("Note & patient record saved!");
+        showToast("Saved into Saved Records!", "#4CC38A", "#FFFFFF");
       }
     };
 
@@ -4033,7 +4096,8 @@
       if (window.activeRecordId === recordId) window.activeRecordId = null;
 
       persistLocalRecordsFallback();
-      document.getElementById('saved-count-badge').textContent = window.cloudRecords.length;
+      const badge = document.getElementById('saved-count-badge');
+      if (badge) badge.textContent = window.cloudRecords.length;
       window.renderSavedRecordsList();
 
       if (window.firestoreDeleteRecord) {
@@ -4048,15 +4112,17 @@
 
       window.activeRecordId = rec.id;
       const pt = rec.patient || {};
-      document.getElementById('pt-name').value = pt.name || '';
-      document.getElementById('pt-mykid').value = pt.mykid || '';
-      document.getElementById('pt-dob').value = pt.dob || '';
-      document.getElementById('pt-gender').value = pt.gender || '';
-      document.getElementById('pt-diagnosis').value = pt.diagnosis || '';
-      document.getElementById('pt-rn').value = pt.rn || '';
-      document.getElementById('pt-informant').value = pt.informant || '';
-      document.getElementById('pt-session-date').value = pt.sessionDate || '';
-      document.getElementById('pt-therapist').value = pt.therapist || 'OT Ezlyana';
+      const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+
+      setVal('pt-name', pt.name || '');
+      setVal('pt-mykid', pt.mykid || '');
+      setVal('pt-dob', pt.dob || '');
+      setVal('pt-gender', pt.gender || '');
+      setVal('pt-diagnosis', pt.diagnosis || '');
+      setVal('pt-rn', pt.rn || '');
+      setVal('pt-informant', pt.informant || '');
+      setVal('pt-session-date', pt.sessionDate || '');
+      setVal('pt-therapist', pt.therapist || 'OT Ezlyana');
       if (pt.dob) handleDobChange(pt.dob);
       syncPatientState();
 
@@ -4064,29 +4130,31 @@
       try { state.selectedGrasps = JSON.parse(rec.selectedGrasps || '{}'); } catch (e) { state.selectedGrasps = {}; }
 
       const soap = rec.soap || {};
-      document.getElementById('soap-came-with').value = soap.cameWith || pt.informant || '';
-      document.getElementById('soap-entered-room-with').value = soap.enteredRoomWith || '';
-      document.getElementById('soap-s').value = soap.s || '';
-      document.getElementById('soap-o').value = soap.o || '';
-      document.getElementById('soap-a').value = soap.a || '';
-      document.getElementById('soap-p').value = soap.p || '';
-      document.getElementById('obs-behavior').value = soap.behavior || '';
-      document.getElementById('obs-emotion').value = soap.emotion || '';
-      document.getElementById('obs-concept').value = soap.concept || '';
-      document.getElementById('obs-cognitive').value = soap.cognitive || '';
-      document.getElementById('obs-finemotor').value = soap.finemotor || '';
-      document.getElementById('obs-sensory').value = soap.sensory || '';
+      setVal('soap-came-with', soap.cameWith || pt.informant || '');
+      setVal('soap-entered-room-with', soap.enteredRoomWith || '');
+      setVal('soap-s', soap.s || '');
+      setVal('soap-o', soap.o || '');
+      setVal('soap-a', soap.a || '');
+      setVal('soap-stg', soap.stg || '');
+      setVal('soap-ltg', soap.ltg || '');
+      setVal('soap-p', soap.p || '');
+      setVal('obs-behavior', soap.behavior || '');
+      setVal('obs-emotion', soap.emotion || '');
+      setVal('obs-concept', soap.concept || '');
+      setVal('obs-cognitive', soap.cognitive || '');
+      setVal('obs-finemotor', soap.finemotor || '');
+      setVal('obs-sensory', soap.sensory || '');
 
       try { state.denver = JSON.parse(rec.denver || '{}'); } catch (e) { state.denver = {}; }
-      document.getElementById('denver-age-months').value = rec.denverAgeMonths || 36;
-      document.getElementById('denver-notes').value = rec.denverNotes || '';
+      setVal('denver-age-months', rec.denverAgeMonths || 36);
+      setVal('denver-notes', rec.denverNotes || '');
 
-      document.getElementById('ssp-filled-by').value = rec.sspFilledBy || '';
+      setVal('ssp-filled-by', rec.sspFilledBy || '');
       try { state.sspAnswers = JSON.parse(rec.sspAnswers || '{}'); } catch (e) { state.sspAnswers = {}; }
       try { state.sspOtScores = JSON.parse(rec.sspOtScores || '{}'); } catch (e) { state.sspOtScores = {}; }
 
-      document.getElementById('sp2-age-form').value = rec.sp2AgeForm || 'child';
-      document.getElementById('sp2-filled-by').value = rec.sp2FilledBy || '';
+      setVal('sp2-age-form', rec.sp2AgeForm || 'child');
+      setVal('sp2-filled-by', rec.sp2FilledBy || '');
       try { state.sp2Answers = JSON.parse(rec.sp2Answers || '{}'); } catch (e) { state.sp2Answers = {}; }
       try { state.sp2OtScores = JSON.parse(rec.sp2OtScores || '{}'); } catch (e) { state.sp2OtScores = {}; }
       try { state.sp2OtSectionScores = JSON.parse(rec.sp2OtSectionScores || '{}'); } catch (e) { state.sp2OtSectionScores = {}; }
@@ -4098,13 +4166,12 @@
       renderSP2();
       calculateSP2Results();
 
-      if (rec.compiledSoapText) {
+      if (rec.compiledSOAPText) {
         state.isCompiledSOAPManuallyEdited = !!rec.isCompiledSOAPManuallyEdited;
-        const previewEl = document.getElementById('live-soap-compiled-preview');
-        if (previewEl) previewEl.value = rec.compiledSoapText;
+        setVal('live-soap-compiled-preview', rec.compiledSOAPText);
       } else {
         state.isCompiledSOAPManuallyEdited = false;
-        updateLiveCompiledSOAPPreview();
+        updateLiveCompiledSOAPPreview(true);
       }
 
       triggerMascotCheer(`Loaded ${pt.name || 'Patient Record'}!`);
@@ -4123,7 +4190,7 @@
             <div class="flex justify-center mb-2">${DOODLE_ICONS.folder}</div>
             <div class="font-bold text-base">No Saved Records Yet</div>
             <div class="text-xs sm:text-sm text-[#1E1B18]/75 mt-1">
-              Fill in your patient's details & SOAP notes, then tap <strong>"Save Note"</strong> or <strong>"Save Record"</strong> to access them across devices!
+              Fill in your patient's details & SOAP notes, then tap <strong>"Save Note"</strong> or <strong>"Save Record"</strong> to access them anytime!
             </div>
           </div>
         `;
@@ -4133,6 +4200,7 @@
       container.innerHTML = list.map(rec => {
         const pt = rec.patient || {};
         const dateStr = rec.updatedAt ? new Date(rec.updatedAt).toLocaleString() : (pt.sessionDate || '');
+        const previewSnippet = (rec.compiledSOAPText || '').replace(/\s+/g, ' ').trim().slice(0, 110);
         return `
           <div class="crayon-card-pink p-4 flex flex-col justify-between gap-3">
             <div>
@@ -4148,7 +4216,8 @@
               <div class="text-xs font-medium text-[#1E1B18]/80 mt-2">
                 <strong>Diagnosis:</strong> ${pt.diagnosis || 'Not specified'}
               </div>
-              <div class="text-[11px] text-[#1E1B18]/65 mt-1">
+              ${previewSnippet ? `<div class="text-[11px] text-[#1E1B18]/75 bg-white/80 p-2 rounded-xl border border-[#1E1B18]/20 mt-1.5 line-clamp-2">${previewSnippet}...</div>` : ''}
+              <div class="text-[11px] text-[#1E1B18]/65 mt-1.5">
                 Last Saved: ${dateStr}
               </div>
             </div>
@@ -4173,15 +4242,18 @@
       state.isCompiledSOAPManuallyEdited = false;
       ['pt-name', 'pt-mykid', 'pt-dob', 'pt-gender', 'pt-diagnosis', 'pt-rn', 'pt-informant',
        'soap-came-with', 'soap-entered-room-with',
-       'soap-s', 'soap-o', 'soap-a', 'soap-p', 'obs-behavior', 'obs-emotion', 'obs-concept',
-       'obs-cognitive', 'obs-finemotor', 'obs-sensory', 'denver-notes', 'ssp-filled-by',
-       'sp2-filled-by', 'shore-school', 'shore-speed', 'shore-notes'].forEach(id => {
+       'soap-s', 'soap-o', 'soap-a', 'soap-stg', 'soap-ltg', 'soap-p', 'obs-behavior', 'obs-emotion', 'obs-concept',
+       'obs-cognitive', 'obs-finemotor', 'obs-sensory', 'live-soap-compiled-preview',
+       'denver-notes', 'ssp-filled-by', 'sp2-filled-by', 'shore-school', 'shore-speed', 'shore-notes'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
-      document.getElementById('pt-therapist').value = 'OT Ezlyana';
-      document.getElementById('exact-age-display').textContent = "Enter MyKid or Date of Birth";
-      document.getElementById('age-sp2-recommendation').textContent = "Sensory Profile 2 Group: Pending Age";
+      const therapistEl = document.getElementById('pt-therapist');
+      const ageDispEl = document.getElementById('exact-age-display');
+      const sp2RecEl = document.getElementById('age-sp2-recommendation');
+      if (therapistEl) therapistEl.value = 'OT Ezlyana';
+      if (ageDispEl) ageDispEl.textContent = "Enter MyKid or Date of Birth";
+      if (sp2RecEl) sp2RecEl.textContent = "Sensory Profile 2 Group: Pending Age";
 
       state.domainRatings = {};
       state.selectedGrasps = {};
@@ -4202,7 +4274,7 @@
       calculateSP2Results();
       updateShoreInterpretation();
       syncPatientState();
-      updateLiveCompiledSOAPPreview();
+      updateLiveCompiledSOAPPreview(true);
 
       triggerMascotCheer("Fresh patient session ready!");
       showToast("Started a fresh patient session!", "#56CFE1", "#1E1B18");
