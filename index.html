@@ -361,6 +361,11 @@
           <span>Shore Interpretation</span>
         </button>
 
+        <button type="button" onclick="switchTab('pain')" id="tab-btn-pain" class="crayon-btn bg-[#FF99C8] text-[#1E1B18] px-4 py-2.5 text-sm whitespace-nowrap">
+          <svg class="doodle-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#FFD23F" stroke="#1E1B18" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="#1E1B18"/><circle cx="15" cy="10" r="1.2" fill="#1E1B18"/><path d="M8.5 14.5q3.5 3 7 0" fill="none" stroke="#1E1B18" stroke-width="2" stroke-linecap="round"/></svg>
+          <span>Pain Scale</span>
+        </button>
+
         <button type="button" onclick="switchTab('records')" id="tab-btn-records" class="crayon-btn bg-[#C792EA] text-white px-4 py-2.5 text-sm whitespace-nowrap">
           <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" fill="#FFD23F" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
           <span>Saved Records (<span id="saved-count-badge">0</span>)</span>
@@ -1515,14 +1520,141 @@
       </section>
 
       <!-- ====================================================================
-           TAB 7: SAVED RECORDS (CLOUD CROSS-DEVICE SYNC, DELETE, PDF & DRIVE)
+           TAB 6B: PEDIATRIC PAIN SCALE (PRE / DURING / POST WITH SINGLE ANIMATED FACE)
+           ==================================================================== -->
+      <section id="tab-pain" class="tab-panel hidden space-y-5">
+        <div class="crayon-card p-5 sm:p-6">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-4 mb-5 border-b-3 border-dashed border-[#1E1B18]/25">
+            <div>
+              <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-xl bg-[#FF99C8] text-[#1E1B18] border-2 border-[#1E1B18]">7</span>
+                <span>Pediatric Pain Scale (Pre / During / Post)</span>
+              </h2>
+              <p class="text-sm font-medium text-[#1E1B18]/80 mt-1">
+                Switch between <strong>Pre</strong>, <strong>During</strong>, and <strong>Post</strong> tabs — the single interactive face moves to match the selected pain score for each stage!
+              </p>
+            </div>
+            <button type="button" onclick="sendPainScaleToSOAP()" class="crayon-btn bg-[#FFD23F] text-[#1E1B18] px-4 py-2.5 text-xs sm:text-sm font-bold shrink-0">
+              <svg class="doodle-svg" viewBox="0 0 24 24"><polygon points="12,2 14.8,8.5 22,9.2 16.5,14 18.2,21 12,17.3 5.8,21 7.5,14 2,9.2 9.2,8.5" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
+              <span>Send Pain Scale to SOAP</span>
+            </button>
+          </div>
+
+          <!-- 3 Stage Tabs (Pre / During / Post) -->
+          <div class="grid grid-cols-3 gap-2.5 sm:gap-4 mb-5">
+            <button type="button" id="pain-stage-btn-pre" onclick="selectPainStage('pre')" class="crayon-btn bg-[#56CFE1] text-[#1E1B18] py-3 px-2 text-xs sm:text-base font-bold">
+              <span>Pre-Session</span>
+              <span id="pain-stage-pill-pre" class="px-2 py-0.5 rounded-full bg-white border-2 border-[#1E1B18] text-xs">Not set</span>
+            </button>
+            <button type="button" id="pain-stage-btn-during" onclick="selectPainStage('during')" class="crayon-btn bg-white text-[#1E1B18] py-3 px-2 text-xs sm:text-base font-bold">
+              <span>During Session</span>
+              <span id="pain-stage-pill-during" class="px-2 py-0.5 rounded-full bg-[#FFFDF0] border-2 border-[#1E1B18] text-xs">Not set</span>
+            </button>
+            <button type="button" id="pain-stage-btn-post" onclick="selectPainStage('post')" class="crayon-btn bg-white text-[#1E1B18] py-3 px-2 text-xs sm:text-base font-bold">
+              <span>Post-Session</span>
+              <span id="pain-stage-pill-post" class="px-2 py-0.5 rounded-full bg-[#FFFDF0] border-2 border-[#1E1B18] text-xs">Not set</span>
+            </button>
+          </div>
+
+          <!-- Single Interactive Animated Face Stage -->
+          <div class="crayon-card-yellow p-5 mb-5 flex flex-col items-center text-center">
+            <div class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white border-2 border-[#1E1B18] mb-3">
+              Active Stage: <span id="pain-active-stage-label" class="text-[#FF6BB5]">Pre-Session</span>
+            </div>
+
+            <!-- Single Dynamic Face SVG -->
+            <div id="pain-face-wrapper" class="transition-transform duration-300 ease-out my-2">
+              <svg id="pain-single-face-svg" class="w-36 h-36 sm:w-44 sm:h-44 drop-shadow-md" viewBox="0 0 160 160">
+                <circle id="pain-face-bg" cx="80" cy="80" r="66" fill="#4CC38A" stroke="#1E1B18" stroke-width="5" style="transition: fill 0.3s ease;" />
+                <!-- Cheeks -->
+                <ellipse id="pain-cheek-l" cx="46" cy="92" rx="10" ry="6" fill="#FF6BB5" opacity="0.55" />
+                <ellipse id="pain-cheek-r" cx="114" cy="92" rx="10" ry="6" fill="#FF6BB5" opacity="0.55" />
+                <!-- Eyebrows -->
+                <path id="pain-brow-l" d="M46 56 Q56 50 66 56" fill="none" stroke="#1E1B18" stroke-width="4.5" stroke-linecap="round" style="transition: all 0.3s ease;" />
+                <path id="pain-brow-r" d="M94 56 Q104 50 114 56" fill="none" stroke="#1E1B18" stroke-width="4.5" stroke-linecap="round" style="transition: all 0.3s ease;" />
+                <!-- Eyes -->
+                <circle id="pain-eye-l" cx="56" cy="70" r="7" fill="#1E1B18" style="transition: all 0.3s ease;" />
+                <circle id="pain-eye-r" cx="104" cy="70" r="7" fill="#1E1B18" style="transition: all 0.3s ease;" />
+                <!-- Tears (Shown at score 8 & 10) -->
+                <path id="pain-tear-l" d="M46 78 Q40 92 46 98 Q52 92 46 78 Z" fill="#56CFE1" stroke="#1E1B18" stroke-width="2" opacity="0" style="transition: opacity 0.3s ease;" />
+                <path id="pain-tear-r" d="M114 78 Q108 92 114 98 Q120 92 114 78 Z" fill="#56CFE1" stroke="#1E1B18" stroke-width="2" opacity="0" style="transition: opacity 0.3s ease;" />
+                <!-- Mouth -->
+                <path id="pain-mouth" d="M52 102 Q80 128 108 102" fill="none" stroke="#1E1B18" stroke-width="5.5" stroke-linecap="round" style="transition: all 0.3s ease;" />
+              </svg>
+            </div>
+
+            <div id="pain-current-score-text" class="text-lg sm:text-xl font-bold mt-2">
+              Tap a score below (0 – 10) for Pre-Session
+            </div>
+
+            <!-- Score Selector Buttons (0, 2, 4, 6, 8, 10) -->
+            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2.5 w-full max-w-2xl mt-4">
+              <button type="button" onclick="setPainScoreForActiveStage(0)" id="pain-score-btn-0" class="crayon-btn bg-white py-2.5 px-2 flex flex-col items-center text-xs font-bold">
+                <span class="text-base sm:text-lg">0</span>
+                <span>No Hurt</span>
+              </button>
+              <button type="button" onclick="setPainScoreForActiveStage(2)" id="pain-score-btn-2" class="crayon-btn bg-white py-2.5 px-2 flex flex-col items-center text-xs font-bold">
+                <span class="text-base sm:text-lg">2</span>
+                <span>Hurts Little Bit</span>
+              </button>
+              <button type="button" onclick="setPainScoreForActiveStage(4)" id="pain-score-btn-4" class="crayon-btn bg-white py-2.5 px-2 flex flex-col items-center text-xs font-bold">
+                <span class="text-base sm:text-lg">4</span>
+                <span>Hurts Little More</span>
+              </button>
+              <button type="button" onclick="setPainScoreForActiveStage(6)" id="pain-score-btn-6" class="crayon-btn bg-white py-2.5 px-2 flex flex-col items-center text-xs font-bold">
+                <span class="text-base sm:text-lg">6</span>
+                <span>Hurts Even More</span>
+              </button>
+              <button type="button" onclick="setPainScoreForActiveStage(8)" id="pain-score-btn-8" class="crayon-btn bg-white py-2.5 px-2 flex flex-col items-center text-xs font-bold">
+                <span class="text-base sm:text-lg">8</span>
+                <span>Hurts Whole Lot</span>
+              </button>
+              <button type="button" onclick="setPainScoreForActiveStage(10)" id="pain-score-btn-10" class="crayon-btn bg-white py-2.5 px-2 flex flex-col items-center text-xs font-bold">
+                <span class="text-base sm:text-lg">10</span>
+                <span>Hurts Worst</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3-Column Summary (Pre | During | Post) -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            <div class="crayon-card-sky p-3.5 text-center">
+              <div class="text-xs font-bold uppercase text-[#1E1B18]/70">Pre-Session Pain</div>
+              <div id="pain-col-pre" class="text-base sm:text-lg font-bold mt-1">Not recorded</div>
+            </div>
+            <div class="crayon-card-pink p-3.5 text-center">
+              <div class="text-xs font-bold uppercase text-[#1E1B18]/70">During Session Pain</div>
+              <div id="pain-col-during" class="text-base sm:text-lg font-bold mt-1">Not recorded</div>
+            </div>
+            <div class="crayon-card-mint p-3.5 text-center">
+              <div class="text-xs font-bold uppercase text-[#1E1B18]/70">Post-Session Pain</div>
+              <div id="pain-col-post" class="text-base sm:text-lg font-bold mt-1">Not recorded</div>
+            </div>
+          </div>
+
+          <!-- Pain Location / Notes -->
+          <div class="bg-[#FFF5FA] border-3 border-[#1E1B18] rounded-2xl p-4">
+            <div class="flex items-center justify-between mb-2">
+              <label class="font-bold text-sm">Pain Location & Clinical Remarks</label>
+              <button type="button" onclick="openHandwritingPad('pain-notes', 'Pain Scale Notes')" class="crayon-btn bg-[#FFD23F] px-3 py-1 text-xs">
+                <svg class="doodle-svg" viewBox="0 0 24 24"><path d="M15.5 3.5l5 5L8 21H3v-5L15.5 3.5z" fill="#FF6BB5" stroke="#1E1B18" stroke-width="2" stroke-linejoin="round"/></svg>
+                <span>Pen</span>
+              </button>
+            </div>
+            <input type="text" id="pain-notes" oninput="updatePainScaleUI()" placeholder="e.g., Right wrist / hand fatigue during handwriting tasks..." class="crayon-input text-sm" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 8: SAVED RECORDS (CLOUD CROSS-DEVICE SYNC, DELETE, PDF & DRIVE)
            ==================================================================== -->
       <section id="tab-records" class="tab-panel hidden space-y-5">
         <div class="crayon-card p-5 sm:p-6">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 mb-5 border-b-3 border-dashed border-[#1E1B18]/25">
             <div>
               <h2 class="text-xl sm:text-2xl font-bold flex items-center gap-2">
-                <span class="px-2.5 py-1 rounded-xl bg-[#C792EA] text-white border-2 border-[#1E1B18]">7</span>
+                <span class="px-2.5 py-1 rounded-xl bg-[#C792EA] text-white border-2 border-[#1E1B18]">8</span>
                 <span>Saved Patient Records (Cloud Sync Across Devices)</span>
               </h2>
               <p class="text-sm font-medium text-[#1E1B18]/75 mt-1">
@@ -2254,7 +2386,9 @@
       sp2Mode: 'patient',
       sp2Answers: {},
       sp2OtScores: {},
-      sp2OtSectionScores: {}
+      sp2OtSectionScores: {},
+      painActiveStage: 'pre',
+      painScores: { pre: null, during: null, post: null }
     };
 
     function bootstrapWonderOTApp() {
@@ -2267,6 +2401,7 @@
         renderSSP();
         renderSP2();
         updateShoreInterpretation();
+        updatePainScaleUI();
         initApplePencilCanvas();
         renderSavedRecordsList();
         updateLiveCompiledSOAPPreview();
@@ -2416,6 +2551,7 @@
         ssp: "Bilingual Short Sensory Profile (EN / BM) ready!",
         sp2: "Bilingual Infant/Toddler/Child Sensory Profile 2 ready!",
         shore: "Shore Handwriting Screening OT scoring & interpretation!",
+        pain: "Tap Pre, During, or Post to watch the face move with the pain score!",
         records: "View, load, delete, or export your saved records!"
       };
       triggerMascotCheer(mascotMsgs[tabKey] || "Ready to help!");
@@ -3745,6 +3881,117 @@
     window.sendShoreToSOAP = sendShoreToSOAP;
 
     /* ========================================================================
+       10B. PEDIATRIC PAIN SCALE (PRE / DURING / POST — SINGLE ANIMATED FACE)
+       ======================================================================== */
+    const PAIN_LEVEL_META = {
+      0: { label: "0 - No Hurt", color: "#4CC38A", browL: "M46 56 Q56 50 66 56", browR: "M94 56 Q104 50 114 56", mouth: "M52 102 Q80 128 108 102", tears: 0, scale: "scale(1.06) rotate(-2deg)" },
+      2: { label: "2 - Hurts Little Bit", color: "#B4D455", browL: "M46 58 Q56 54 66 58", browR: "M94 58 Q104 54 114 58", mouth: "M56 104 Q80 118 104 104", tears: 0, scale: "scale(1.03) rotate(2deg)" },
+      4: { label: "4 - Hurts Little More", color: "#FFD23F", browL: "M46 60 L66 60", browR: "M94 60 L114 60", mouth: "M56 108 L104 108", tears: 0, scale: "scale(1) rotate(-2deg)" },
+      6: { label: "6 - Hurts Even More", color: "#FF9E44", browL: "M46 62 Q56 58 66 55", browR: "M94 55 Q104 58 114 62", mouth: "M56 114 Q80 100 104 114", tears: 0, scale: "scale(1.02) rotate(2deg)" },
+      8: { label: "8 - Hurts Whole Lot", color: "#FF6BB5", browL: "M44 64 Q56 56 66 52", browR: "M94 52 Q104 56 116 64", mouth: "M54 118 Q80 94 106 118", tears: 1, scale: "scale(1.04) rotate(-3deg)" },
+      10: { label: "10 - Hurts Worst", color: "#EF4444", browL: "M42 66 Q56 54 66 50", browR: "M94 50 Q104 54 118 66", mouth: "M54 120 Q80 88 106 120", tears: 1, scale: "scale(1.07) rotate(3deg)" }
+    };
+
+    function selectPainStage(stage) {
+      state.painActiveStage = stage;
+      updatePainScaleUI();
+    }
+    window.selectPainStage = selectPainStage;
+
+    function setPainScoreForActiveStage(score) {
+      const stage = state.painActiveStage || 'pre';
+      state.painScores[stage] = state.painScores[stage] === score ? null : score;
+      updatePainScaleUI();
+    }
+    window.setPainScoreForActiveStage = setPainScoreForActiveStage;
+
+    function updatePainScaleUI() {
+      const stage = state.painActiveStage || 'pre';
+      const stageNames = { pre: 'Pre-Session', during: 'During Session', post: 'Post-Session' };
+
+      // Highlight active stage tab
+      ['pre', 'during', 'post'].forEach(st => {
+        const btn = document.getElementById(`pain-stage-btn-${st}`);
+        if (btn) {
+          btn.className = st === stage
+            ? 'crayon-btn bg-[#56CFE1] text-[#1E1B18] py-3 px-2 text-xs sm:text-base font-bold scale-[1.03]'
+            : 'crayon-btn bg-white text-[#1E1B18] py-3 px-2 text-xs sm:text-base font-bold';
+        }
+        const scoreVal = state.painScores[st];
+        const pill = document.getElementById(`pain-stage-pill-${st}`);
+        const colEl = document.getElementById(`pain-col-${st}`);
+        if (pill) pill.textContent = scoreVal !== null && scoreVal !== undefined ? `${scoreVal}/10` : 'Not set';
+        if (colEl) {
+          colEl.textContent = scoreVal !== null && scoreVal !== undefined
+            ? PAIN_LEVEL_META[scoreVal].label
+            : 'Not recorded';
+          colEl.style.color = scoreVal !== null && scoreVal !== undefined ? '#1E1B18' : '#64748B';
+        }
+      });
+
+      const activeLabelEl = document.getElementById('pain-active-stage-label');
+      if (activeLabelEl) activeLabelEl.textContent = stageNames[stage];
+
+      const activeScore = state.painScores[stage];
+      [0, 2, 4, 6, 8, 10].forEach(s => {
+        const sBtn = document.getElementById(`pain-score-btn-${s}`);
+        if (sBtn) {
+          sBtn.style.backgroundColor = activeScore === s ? PAIN_LEVEL_META[s].color : '#FFFFFF';
+          sBtn.style.color = (activeScore === s && (s === 8 || s === 10)) ? '#FFFFFF' : '#1E1B18';
+        }
+      });
+
+      // Animate the single face to match the active tab's score
+      const meta = activeScore !== null && activeScore !== undefined
+        ? PAIN_LEVEL_META[activeScore]
+        : { label: `Tap a score below (0 – 10) for ${stageNames[stage]}`, color: "#E2E8F0", browL: "M46 58 L66 58", browR: "M94 58 L114 58", mouth: "M58 106 L102 106", tears: 0, scale: "scale(1)" };
+
+      const faceBg = document.getElementById('pain-face-bg');
+      const browL = document.getElementById('pain-brow-l');
+      const browR = document.getElementById('pain-brow-r');
+      const mouth = document.getElementById('pain-mouth');
+      const tearL = document.getElementById('pain-tear-l');
+      const tearR = document.getElementById('pain-tear-r');
+      const wrapper = document.getElementById('pain-face-wrapper');
+      const scoreText = document.getElementById('pain-current-score-text');
+
+      if (faceBg) faceBg.setAttribute('fill', meta.color);
+      if (browL) browL.setAttribute('d', meta.browL);
+      if (browR) browR.setAttribute('d', meta.browR);
+      if (mouth) mouth.setAttribute('d', meta.mouth);
+      if (tearL) tearL.setAttribute('opacity', meta.tears);
+      if (tearR) tearR.setAttribute('opacity', meta.tears);
+      if (wrapper) {
+        wrapper.style.transform = meta.scale;
+        setTimeout(() => { if (wrapper) wrapper.style.transform = 'scale(1)'; }, 260);
+      }
+      if (scoreText) {
+        scoreText.textContent = activeScore !== null && activeScore !== undefined
+          ? `${stageNames[stage]}: ${meta.label}`
+          : meta.label;
+      }
+    }
+
+    function getPainScaleSummaryText() {
+      const pre = state.painScores.pre !== null && state.painScores.pre !== undefined ? PAIN_LEVEL_META[state.painScores.pre].label : 'Not recorded';
+      const during = state.painScores.during !== null && state.painScores.during !== undefined ? PAIN_LEVEL_META[state.painScores.during].label : 'Not recorded';
+      const post = state.painScores.post !== null && state.painScores.post !== undefined ? PAIN_LEVEL_META[state.painScores.post].label : 'Not recorded';
+      const remarks = document.getElementById('pain-notes')?.value.trim() || '';
+      return `Pediatric Pain Scale: Pre-Session = ${pre} | During Session = ${during} | Post-Session = ${post}.${remarks ? ` Remarks: ${remarks}.` : ''}`;
+    }
+
+    function sendPainScaleToSOAP() {
+      if (state.painScores.pre === null && state.painScores.during === null && state.painScores.post === null) {
+        showToast("Select at least one pain score (Pre, During, or Post) first!", "#FF9E44", "#FFFFFF");
+        return;
+      }
+      appendText('soap-o', getPainScaleSummaryText());
+      triggerMascotCheer("Pre / During / Post Pain Scale added to SOAP!");
+      showToast("Pain Scale sent to SOAP Objective!", "#FF99C8", "#1E1B18");
+    }
+    window.sendPainScaleToSOAP = sendPainScaleToSOAP;
+
+    /* ========================================================================
        11. SOAP NOTES COMPILER (ONLY ENTERED ITEMS, PURE SOAP OUTPUT), PDF & DRIVE
        ======================================================================== */
     function appendText(elementId, textToAppend) {
@@ -4109,6 +4356,8 @@
         sp2Answers: JSON.stringify(state.sp2Answers),
         sp2OtScores: JSON.stringify(state.sp2OtScores),
         sp2OtSectionScores: JSON.stringify(state.sp2OtSectionScores),
+        painScores: JSON.stringify(state.painScores),
+        painNotes: document.getElementById('pain-notes')?.value || '',
         shoreSummary: updateShoreInterpretation()
       };
     };
@@ -4207,6 +4456,8 @@
       try { state.sp2Answers = JSON.parse(rec.sp2Answers || '{}'); } catch (e) { state.sp2Answers = {}; }
       try { state.sp2OtScores = JSON.parse(rec.sp2OtScores || '{}'); } catch (e) { state.sp2OtScores = {}; }
       try { state.sp2OtSectionScores = JSON.parse(rec.sp2OtSectionScores || '{}'); } catch (e) { state.sp2OtSectionScores = {}; }
+      try { state.painScores = JSON.parse(rec.painScores || '{"pre":null,"during":null,"post":null}'); } catch (e) { state.painScores = { pre: null, during: null, post: null }; }
+      setVal('pain-notes', rec.painNotes || '');
 
       renderObjectiveDomainChecklists();
       renderDenverItems();
@@ -4214,6 +4465,7 @@
       calculateSSPResults();
       renderSP2();
       calculateSP2Results();
+      updatePainScaleUI();
 
       if (rec.compiledSOAPText) {
         state.isCompiledSOAPManuallyEdited = !!rec.isCompiledSOAPManuallyEdited;
@@ -4294,7 +4546,7 @@
        'soap-s', 'soap-o', 'soap-a', 'soap-stg', 'soap-ltg', 'soap-p', 'soap-home-program',
        'obs-behavior', 'obs-emotion', 'obs-concept',
        'obs-cognitive', 'obs-finemotor', 'obs-sensory', 'live-soap-compiled-preview',
-       'denver-notes', 'ssp-filled-by', 'sp2-filled-by', 'shore-school', 'shore-speed', 'shore-notes'].forEach(id => {
+       'denver-notes', 'ssp-filled-by', 'sp2-filled-by', 'shore-school', 'shore-speed', 'shore-notes', 'pain-notes'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
@@ -4313,6 +4565,8 @@
       state.sp2Answers = {};
       state.sp2OtScores = {};
       state.sp2OtSectionScores = {};
+      state.painActiveStage = 'pre';
+      state.painScores = { pre: null, during: null, post: null };
 
       document.querySelectorAll('.shore-posture-issue, .shore-shape, .shore-rec-area, #shore-rec-none').forEach(cb => cb.checked = false);
 
@@ -4323,6 +4577,7 @@
       renderSP2();
       calculateSP2Results();
       updateShoreInterpretation();
+      updatePainScaleUI();
       syncPatientState();
       updateLiveCompiledSOAPPreview(true);
 
